@@ -1,5 +1,3 @@
-// https://www.youtube.com/watch?v=WgAw_QN0aTA
-// https://www.youtube.com/watch?v=_b4-jWVZtg8
 
 const dadosGrid = document.querySelector("#dadosGrid");
 const btn_add = document.querySelector("#btn_add");
