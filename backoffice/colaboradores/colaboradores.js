@@ -12,9 +12,26 @@ const f_nome = document.querySelector("#f_nome");
 const f_status = document.querySelector("#f_status");
 const f_foto = document.querySelector("#f_foto");
 const img_foto = document.querySelector("#img_foto");
+const f_filtragem = document.querySelector("#f_filtragem");
 
 //n novo colaborator | e Editar colaborator
 let modojanela = "n";
+const serv = sessionStorage.getItem("servidor_nodered");
+
+f_filtragem.addEventListener("keyup", (evt) => {
+    const linhas = [...document.querySelectorAll(".linhaGrid")];
+    let input, texto, filtragem;
+    input = evt.target;
+    filtragem = input.value.toUpperCase();
+    for (let i = 0; i < linhas.length; i++) {
+        texto = linhas[i].children[1].innerHTML;
+        if (texto.toUpperCase().indexOf(filtragem) > -1) {
+            linhas[i].classList.remove("ocultarLinhaGrid")
+        } else {
+            linhas[i].classList.add("ocultarLinhaGrid")
+        }
+    }
+})
 
 const criarCxTelefone = (fone, idtel, tipo) => {
     const divTel = document.createElement("div")
@@ -38,7 +55,7 @@ const criarCxTelefone = (fone, idtel, tipo) => {
         if (idtel != "-1") {
             const objTel = evt.target
             const idtel = objTel.dataset.idtel;
-            const endpoint = `http://127.0.0.1:1880/deltelefone/${idtel}`
+            const endpoint = `${serv}/${idtel}`
             fetch(endpoint)
                 .then(res => {
                     if (res.status == 200) {
@@ -57,7 +74,7 @@ const criarCxTelefone = (fone, idtel, tipo) => {
 }
 
 const carregarTodosColabs = () => {
-    const endpoint = `http://127.0.0.1:1880/todosusuarios`;
+    const endpoint = `${serv}/todosusuarios`;
     fetch(endpoint)
         .then(res => res.json())
         .then(res => {
@@ -90,10 +107,36 @@ const carregarTodosColabs = () => {
                 divc5.setAttribute("class", "colunaLinhaGrid c5");
                 divlinha.appendChild(divc5);
 
-                // const img_status = document.createElement("img");
-                // img_status.setAttribute("src", "../../imagens/on.svg");
-                // img_status.setAttribute("class", "icone_op");
-                // divc5.appendChild(img_status);
+                const img_status = document.createElement("img");
+                if (e.c_status_pessoa == "A") {
+
+                    img_status.setAttribute("src", "../../imagens/on.svg");
+                } else {
+                    img_status.setAttribute("src", "../../imagens/off.svg");
+                }
+                img_status.setAttribute("data-idcolab", e.n_pessoa_pessoa);
+                img_status.setAttribute("class", "icone_op");
+                img_status.addEventListener("click", (evt) => {
+                    const idcolab = evt.target.dataset.idcolab;
+                    if (evt.target.getAttribute("src") == "../../imagens/on.svg") {
+                        const endpoint_mudarStatus = `${serv}/mudarStatusColab/${idcolab}/I`
+                        fetch(endpoint_mudarStatus)
+                            .then(res => {
+                                if (res.status == 200) {
+                                    evt.target.setAttribute("src", "../../imagens/off.svg");
+                                }
+                            })
+                    } else {
+                        const endpoint_mudarStatus = `${serv}/mudarStatusColab/${idcolab}/A`
+                        fetch(endpoint_mudarStatus)
+                            .then(res => {
+                                if (res.status == 200) {
+                                    evt.target.setAttribute("src", "../../imagens/on.svg");
+                                }
+                            })
+                    }
+                });
+                divc5.appendChild(img_status);
 
                 const img_editar = document.createElement("img");
                 img_editar.setAttribute("src", "../../imagens/edit.svg");
@@ -102,7 +145,7 @@ const carregarTodosColabs = () => {
                     const id = evt.target.parentNode.parentNode.firstChild.innerHTML
                     modojanela = "e";
                     document.getElementById("tituloPopup").innerHTML = "Editar Colaborador";
-                    let endpoint = `http://127.0.0.1:1880/dadoscolab/${id}`;
+                    let endpoint = `${serv}/dadoscolab/${id}`;
                     fetch(endpoint)
                         .then(res => res.json())
                         .then(res => {
@@ -114,7 +157,7 @@ const carregarTodosColabs = () => {
                             novoColaborador.classList.remove("ocultarPopup")
                         })
 
-                    endpoint = `http://127.0.0.1:1880/telefonescolab/${id}`;
+                    endpoint = `${serv}/telefonescolab/${id}`;
                     fetch(endpoint)
                         .then(res => res.json())
                         .then(res => {
@@ -139,7 +182,7 @@ const carregarTodosColabs = () => {
 }
 carregarTodosColabs()
 
-const endpointTipoColab = `http://127.0.0.1:1880/tipousuarios`;
+const endpointTipoColab = `${serv}/tipousuarios`;
 fetch(endpointTipoColab)
     .then(res => res.json())
     .then(res => {
@@ -190,9 +233,9 @@ btn_gravarPopup.addEventListener("click", (evt) => {
     }
     let endpointnovoeditarcolab = null;
     if (modojanela == "n") {
-        endpointnovoeditarcolab = `http://127.0.0.1:1880/novocolab`
+        endpointnovoeditarcolab = `${serv}/novocolab`
     } else {
-        endpointnovoeditarcolab = `http://127.0.0.1:1880/editarcolab`
+        endpointnovoeditarcolab = `${serv}/editarcolab`
     }
 
     fetch(endpointnovoeditarcolab, cabecalho)
