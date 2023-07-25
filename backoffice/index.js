@@ -56,15 +56,15 @@ todosmenusprincipais.forEach(e => {
 //     duration: 5,
 
 // })
-gsap.to(".box", {
-    duration: 1,
-    scale: 0.1,
-    y: 40,
-    ease: "power1.inOut",
-    stagger: {
-        grid: [7, 15],
-        from: "edges",
-        amount: 1.5,
-        repeat: -1
-    }
-});
+// gsap.to(".box", {
+//     duration: 1,
+//     scale: 0.1,
+//     y: 40,
+//     ease: "power1.inOut",
+//     stagger: {
+//         grid: [7, 15],
+//         from: "edges",
+//         amount: 1.5,
+//         repeat: -1
+//     }
+// });

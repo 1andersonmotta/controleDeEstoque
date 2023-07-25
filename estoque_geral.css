@@ -282,6 +282,13 @@ body {
     width: 300px;
 }
 
+.campoRadio {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
 .filtragem {
     display: flex;
     justify-content: center;
