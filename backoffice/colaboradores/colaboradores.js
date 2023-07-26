@@ -1,3 +1,4 @@
+import { Cxmsg } from "../../utils/cxmsg.js";
 
 const dadosGrid = document.querySelector("#dadosGrid");
 const btn_add = document.querySelector("#btn_add");
@@ -74,7 +75,19 @@ btn_pesquisar.addEventListener("click", (evt) => {
             })
         pesquisa.classList.add("ocultarPopup")
     } else {
-        alert("Preencha o campo de pesquisa");
+        const config = {
+            titulo: "Alerta",
+            texto: "Digite o nome ou ID",
+            cor: "#00f",
+            tipo: "ok",
+            ok: () => {
+
+            },
+            sim: null,
+            nao: null
+        }
+        Cxmsg.mostrar(config)
+        // alert("Preencha o campo de pesquisa");
         f_pesq.focus();
     }
 });
@@ -295,7 +308,16 @@ btn_gravarPopup.addEventListener("click", (evt) => {
         .then(res => {
             if (res.status == 200) {
                 if (modojanela == "n") {
-                    alert("Novo colaborador gravado")
+                    const config = {
+                        titulo: "OK",
+                        texto: "Novo colaborador gravado",
+                        cor: "#00f",
+                        tipo: "ok",
+                        ok: () => { },
+                        sim: () => { },
+                        nao: () => { }
+                    }
+                    Cxmsg.mostrar(config)
                     f_nome.value = "";
                     f_tipoColab.value = "";
                     f_status.value = "";
@@ -304,12 +326,30 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                     telefones.innerHTML = "";
                     carregarTodosColabs();
                 } else {
-                    alert("Colaborador editado com sucesso!");
+                    const config = {
+                        titulo: "OK",
+                        texto: "Colaborador editado com sucesso!",
+                        cor: "#00f",
+                        tipo: "ok",
+                        ok: () => { },
+                        sim: () => { },
+                        nao: () => { }
+                    }
+                    Cxmsg.mostrar(config)
                 }
 
 
             } else {
-                alert("Erro ao gravar colaborador")
+                const config = {
+                    titulo: "OK",
+                    texto: "Erro ao gravar colaborador",
+                    cor: "#f00",
+                    tipo: "ok",
+                    ok: () => { },
+                    sim: () => { },
+                    nao: () => { }
+                }
+                Cxmsg.mostrar(config)
             }
         })
 
@@ -325,7 +365,16 @@ f_fone.addEventListener("keyup", (evt) => {
             criarCxTelefone(evt.target.value, "-1", "n")
             evt.target.value = "";
         } else {
-            alert(`Número de telefone inválido! ex:15997897412`)
+            const config = {
+                titulo: "OK",
+                texto: "Número de telefone inválido! ex:15997897412",
+                cor: "#f00",
+                tipo: "ok",
+                ok: () => { },
+                sim: () => { },
+                nao: () => { }
+            }
+            Cxmsg.mostrar(config)
         }
     }
 })
