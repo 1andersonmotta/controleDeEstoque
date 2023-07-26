@@ -284,7 +284,6 @@ btn_gravarPopup.addEventListener("click", (evt) => {
     tels.forEach((t) => {
         numTels.push(t.innerHTML);
     })
-
     const dados = {
         n_pessoa_pessoa: evt.target.dataset.idcolab,
         s_nome_pessoa: f_nome.value,
