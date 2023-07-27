@@ -8,7 +8,6 @@ const btn_fecharPopupPesq = document.querySelector("#btn_fecharPopupPesq");
 const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
 const telefones = document.querySelector("#telefones");
-const f_fone = document.querySelector("#f_fone");
 const f_tipoColab = document.querySelector("#f_tipoColab");
 const f_nome = document.querySelector("#f_nome");
 const f_status = document.querySelector("#f_status");
@@ -149,6 +148,7 @@ const criarLinha = (e) => {
                 .then(res => {
                     if (res.status == 200) {
                         evt.target.setAttribute("src", "../../imagens/off.svg");
+                        evt.target.parentNode.parentNode.childNodes[2].innerHTML = "I"
                     }
                 })
         } else {
@@ -157,6 +157,8 @@ const criarLinha = (e) => {
                 .then(res => {
                     if (res.status == 200) {
                         evt.target.setAttribute("src", "../../imagens/on.svg");
+                        evt.target.parentNode.parentNode.childNodes[2].innerHTML = "A"
+
                     }
                 })
         }
@@ -170,17 +172,16 @@ const criarLinha = (e) => {
         const id = evt.target.parentNode.parentNode.firstChild.innerHTML
         modojanela = "e";
         document.getElementById("tituloPopup").innerHTML = "Editar Fornecedor";
-        let endpoint = `${serv}/dadoscolab/${id}`;
+        let endpoint = `${serv}/dadosforn/${id}`;
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
                 btn_gravarPopup.setAttribute("data-idfornecedor", id)
-                f_nome.value = res[0].s_nome_pessoa;
-                f_tipoColab.value = res[0].n_tipopessoa_tipopessoa;
-                f_status.value = res[0].c_status_pessoa;
-                img_foto.src = res[0].s_foto_pessoa;
+                f_nome.value = res[0].s_desc_fornecedor;
+                f_status.value = res[0].c_status_fornecedor;
+                img_foto.src = res[0].s_logo_fornecedor;
                 novoFornecedor.classList.remove("ocultarPopup")
-                if (img_foto.src == "" || img_foto.src == "#") {
+                if (res[0].s_logo_fornecedor == "") {
                     img_foto.classList.add("esconderElemento");
                 } else {
                     img_foto.classList.remove("esconderElemento")
@@ -190,28 +191,12 @@ const criarLinha = (e) => {
     })
 
     divc4.appendChild(img_editar);
-
     const img_remover = document.createElement("img");
     img_remover.setAttribute("src", "../../imagens/delete.svg");
     img_remover.setAttribute("class", "icone_op");
     divc4.appendChild(img_remover);
-
     dadosGrid.appendChild(divlinha);
 };
-
-const endpoint = `${serv}/tipoufornecedor`;
-fetch(endpoint)
-    .then(res => res.json())
-    .then(res => {
-        f_tipoColab.innerHTML = "";
-        res.forEach(e => {
-            const opt = document.createElement("option");
-            opt.setAttribute("value", e.n_tipopessoa_tipopessoa)
-            opt.innerHTML = e.s_desc_tipopessoa;
-            f_tipoColab.appendChild(opt);
-        })
-
-    })
 
 btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
@@ -219,11 +204,9 @@ btn_add.addEventListener("click", (evt) => {
     novoFornecedor.classList.remove("ocultarPopup");
     img_foto.classList.add("esconderElemento");
     f_nome.value = "";
-    f_tipoColab.value = "";
     f_status.value = "";
     f_foto.value = "";
     img_foto.setAttribute("src", "#");
-    telefones.innerHTML = "";
 })
 
 btn_fecharPopup.addEventListener("click", (evt) => {
@@ -231,33 +214,25 @@ btn_fecharPopup.addEventListener("click", (evt) => {
 })
 
 btn_gravarPopup.addEventListener("click", (evt) => {
-    const tels = [...document.querySelectorAll(".novoTel")];
-    let numTels = [];
-    tels.forEach((t) => {
-        numTels.push(t.innerHTML);
-    })
-
     const dados = {
-        n_pessoa_pessoa: evt.target.dataset.idfornecedor,
-        s_nome_pessoa: f_nome.value,
-        n_tipopessoa_tipopessoa: f_tipoColab.value,
-        c_status_pessoa: f_status.value,
-        numtelefones: numTels,
-        s_foto_pessoa: img_foto.getAttribute("src"),
+        n_fornecedor_fornecedor: evt.target.dataset.idfornecedor,
+        s_desc_fornecedor: f_nome.value,
+        c_status_fornecedor: f_status.value,
+        s_logo_fornecedor: img_foto.getAttribute("src"),
     }
 
     const cabecalho = {
         method: 'post',
         body: JSON.stringify(dados)
     }
-    let endpointnovoeditarcolab = null;
+    let endpoint = null;
     if (modojanela == "n") {
-        endpointnovoeditarcolab = `${serv}/novocolab`
+        endpoint = `${serv}/novoforn`
     } else {
-        endpointnovoeditarcolab = `${serv}/editarcolab`
+        endpoint = `${serv}/editarforn`
     }
 
-    fetch(endpointnovoeditarcolab, cabecalho)
+    fetch(endpoint, cabecalho)
         .then(res => {
             if (res.status == 200) {
                 if (modojanela == "n") {
@@ -272,12 +247,10 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                     }
                     Cxmsg.mostrar(config)
                     f_nome.value = "";
-                    f_tipoColab.value = "";
                     f_status.value = "";
                     f_foto.value = "";
                     img_foto.setAttribute("src", "#");
-                    telefones.innerHTML = "";
-                    carregarTodosFornecedores();
+                    // carregarTodosFornecedores();
                 } else {
                     const config = {
                         titulo: "OK",
@@ -306,8 +279,8 @@ btn_gravarPopup.addEventListener("click", (evt) => {
             }
         }).finally(() => {
             img_foto.classList.add("esconderElemento");
+            carregarTodosFornecedores()
         })
-
 })
 
 btn_cancelarPopup.addEventListener("click", (evt) => {
