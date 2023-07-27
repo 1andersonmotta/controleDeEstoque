@@ -21,7 +21,6 @@ const f_pesqNome = document.querySelector("#f_pesqNome");
 const btn_pesquisar = document.querySelector("#btn_pesquisar");
 const btn_listartudo = document.querySelector("#btn_listartudo");
 
-//n novo colaborator | e Editar colaborator
 let modojanela = "n";
 const serv = sessionStorage.getItem("servidor_nodered");
 
@@ -86,7 +85,6 @@ btn_pesquisar.addEventListener("click", (evt) => {
             nao: null
         }
         Cxmsg.mostrar(config)
-        // alert("Preencha o campo de pesquisa");
         f_pesq.focus();
     }
 });
