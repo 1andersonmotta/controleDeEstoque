@@ -224,6 +224,11 @@ const criarLinha = (e) => {
                 f_status.value = res[0].c_status_pessoa;
                 img_foto.src = res[0].s_foto_pessoa;
                 novoColaborador.classList.remove("ocultarPopup")
+                if (img_foto.src == "" || img_foto.src == "#") {
+                    img_foto.classList.add("esconderElemento");
+                } else {
+                    img_foto.classList.remove("esconderElemento")
+                }
             })
 
         endpoint = `${serv}/telefonescolab/${id}`;
@@ -266,6 +271,7 @@ btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
     document.getElementById("tituloPopup").innerHTML = "Novo Colaborador";
     novoColaborador.classList.remove("ocultarPopup");
+    img_foto.classList.add("esconderElemento");
     f_nome.value = "";
     f_tipoColab.value = "";
     f_status.value = "";
@@ -312,7 +318,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                     const config = {
                         titulo: "OK",
                         texto: "Novo colaborador gravado",
-                        cor: "#00f",
+                        cor: "#0f0",
                         tipo: "ok",
                         ok: () => { },
                         sim: () => { },
@@ -330,7 +336,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                     const config = {
                         titulo: "OK",
                         texto: "Colaborador editado com sucesso!",
-                        cor: "#00f",
+                        cor: "#0f0",
                         tipo: "ok",
                         ok: () => { },
                         sim: () => { },
@@ -342,7 +348,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
 
             } else {
                 const config = {
-                    titulo: "OK",
+                    titulo: "ERRO",
                     texto: "Erro ao gravar colaborador",
                     cor: "#f00",
                     tipo: "ok",
@@ -352,6 +358,8 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                 }
                 Cxmsg.mostrar(config)
             }
+        }).finally(() => {
+            img_foto.classList.add("esconderElemento");
         })
 
 })

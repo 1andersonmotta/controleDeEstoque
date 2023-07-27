@@ -4,31 +4,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estoque - BackOffice</title>
-    <link rel="stylesheet" type="text/css" href="../estoque_geral.css">
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Fornecedores</title>
+    <link rel="stylesheet" type="text/css" href="../../estoque_geral.css">
+    <link rel="stylesheet" type="text/css" href="fornecedores.css">
 </head>
 
 <body>
-    <div id="menuPrincipal" class="menuPrincipal ocultar">
-        <div class="menuItens">
-            <a href="#" class="btn_menuItem">devanderson</a>
-            <a href="#" class="btn_menuItem">devanderson</a>
-            <a href="#" class="btn_menuItem">devanderson</a>
-            <a href="#" class="btn_menuItem">devanderson</a>
-            <a href="#" class="btn_menuItem">devanderson</a>
-        </div>
+    <div id="topoJanela" class="topoJanela">
+        <div></div>
+        <div>Fornecedores</div>
         <div>
-            <img src="../imagens/menu.svg" id="btn_menuPrincipal" class="btn_menuPrincipal">
+            <img src="../../imagens/lupa.svg" id="btn_pesq" class="btn_mainoper" title="Pesquisar" alt="">
+            <img src="../../imagens/listartudo.svg" id="btn_listartudo" class="btn_mainoper" title="Listar todos"
+                alt="">
+            <img src="../../imagens/add.svg" id="btn_add" class="btn_mainoper" title="Adicionar novo operador" alt="">
         </div>
     </div>
 
-    <div id="principal" class="principal">
-        <iframe name="fprincipal" class="fprincipal" frameborder="0"></iframe>
+    <div id="filtragem" class="filtragem">
+        <div class="campoForm campoFiltragem">
+            <label for="">Filtrar pelo nome</label>
+            <input type="text" id="f_filtragem" class="inputFiltragem" name="f_filtragem">
+        </div>
     </div>
 
-    <script src="../estoque_geral.js" type="module"></script>
-    <script src="index.js" type="module"></script>
+    <div id="pesquisa" class="popup ocultarPopup">
+        <div class="janelaPopup">
+            <div class="tituloPopup">
+                <div id="tituloPopupPesquisar">Pesquisar</div>
+                <img src="../../imagens/fechar.svg" alt="" class="btn_janelaoper" id="btn_fecharPopupPesq">
+            </div>
+            <div class="corpoPopup">
+                <div class="campoForm">
+                    <label for="">Tipo da Pesquisa</label>
+                    <div class="campoRadio">
+                        <input type="radio" id="f_pesqId" name="f_pesqTipo" checked>ID
+                    </div>
+                    <div class="campoRadio">
+                        <input type="radio" id="f_pesqNome" name="f_pesqTipo">Nome
+                    </div>
+                </div>
+                <div class="campoForm">
+                    <input type="text" id="f_pesq" name="f_pesq">
+
+                </div>
+            </div>
+            <div class="rodapePopup">
+                <button id="btn_pesquisar" class="btn_comandoPopup">pesquisar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="novoFornecedor" class="popup ocultarPopup">
+        <div class="janelaPopup">
+            <div class="tituloPopup">
+                <div id="tituloPopup">Novo Fornecedor</div>
+                <img src="../../imagens/fechar.svg" alt="" class="btn_janelaoper" id="btn_fecharPopup">
+            </div>
+            <div class="corpoPopup">
+                <div class="campoForm">
+                    <label for="">Nome Fornecedor</label>
+                    <input type="text" id="f_nome" name="f_nome">
+                </div>
+                <div class="campoForm">
+                    <label for="">Status</label>
+                    <select id="f_status" name="f_status">
+                        <option value="A">Ativo</option>
+                        <option value="I">Inativo</option>
+                    </select>
+                </div>
+                <div class="campoForm">
+                    <label for="">Foto</label>
+                    <input type="file" accept="image/png, image/jpeg, image/jpg" id="f_foto" name="f_foto">
+                </div>
+                <div class="campoForm2">
+                    <img src="#" id="img_foto" class="img_foto" alt="">
+                </div>
+            </div>
+            <div class="rodapePopup">
+                <button id="btn_gravarPopup" class="btn_comandoPopup">gravar</button>
+                <button id="btn_cancelarPopup" class="btn_comandoPopup">cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="areaGrid" class="areaGrid">
+        <div id="grid" class="grid">
+            <div id="tituloGrid" class="tituloGrid">
+                <div class="colunaTituloGrid c1">ID</div>
+                <div class="colunaTituloGrid c2">Nome</div>
+                <div class="colunaTituloGrid c3">Status</div>
+                <div class="colunaTituloGrid c4">Operações</div>
+            </div>
+            <div id="dadosGrid" class="dadosGrid">
+                <!-- <div class="linhaGrid">
+                <div class="colunaTituloGrid c1">id</div>
+                <div class="colunaLinhaGrid c2">nome</div>
+                <div class="colunaLinhaGrid c4">status</div>
+                <div class="colunaLinhaGrid c5">operações</div>
+            </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="../../estoque_geral.js" type="module"></script>
+    <script src="fornecedores.js" type="module"></script>
 </body>
 
 </html>
