@@ -62,7 +62,7 @@ btn_pesquisar.addEventListener("click", (evt) => {
         tipo = "nome"
     }
     if (f_pesq.value != "") {
-        const endpointpesq = `${serv}/pesquisacolab/${tipo}/${f_pesq.value}`;
+        const endpointpesq = `${serv}/pesquisaforn/${tipo}/${f_pesq.value}`;
         fetch(endpointpesq)
             .then(res => res.json())
             .then(res => {

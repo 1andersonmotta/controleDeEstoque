@@ -77,7 +77,7 @@ btn_pesquisar.addEventListener("click", (evt) => {
     } else {
         const config = {
             titulo: "Alerta",
-            texto: "Digite o nome ou ID",
+            texto: "Digite o nome ou ID da Pessoa",
             cor: "#00f",
             tipo: "ok",
             ok: () => {
@@ -213,7 +213,7 @@ const criarLinha = (e) => {
     img_editar.addEventListener("click", (evt) => {
         const id = evt.target.parentNode.parentNode.firstChild.innerHTML
         modojanela = "e";
-        document.getElementById("tituloPopup").innerHTML = "Editar Colaborador";
+        document.getElementById("tituloPopup").innerHTML = "Editar Pessoa";
         let endpoint = `${serv}/dadoscolab/${id}`;
         fetch(endpoint)
             .then(res => res.json())
@@ -269,7 +269,7 @@ fetch(endpointTipoColab)
 
 btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
-    document.getElementById("tituloPopup").innerHTML = "Novo Colaborador";
+    document.getElementById("tituloPopup").innerHTML = "Nova Pessoa";
     novoColaborador.classList.remove("ocultarPopup");
     img_foto.classList.add("esconderElemento");
     f_nome.value = "";
@@ -317,7 +317,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                 if (modojanela == "n") {
                     const config = {
                         titulo: "OK",
-                        texto: "Novo colaborador gravado",
+                        texto: "Nova pessoa gravada",
                         cor: "#0f0",
                         tipo: "ok",
                         ok: () => { },
@@ -335,7 +335,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                 } else {
                     const config = {
                         titulo: "OK",
-                        texto: "Colaborador editado com sucesso!",
+                        texto: "Pessoa editada com sucesso!",
                         cor: "#0f0",
                         tipo: "ok",
                         ok: () => { },
@@ -349,7 +349,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
             } else {
                 const config = {
                     titulo: "ERRO",
-                    texto: "Erro ao gravar colaborador",
+                    texto: "Erro ao gravar a pessoa",
                     cor: "#f00",
                     tipo: "ok",
                     ok: () => { },
