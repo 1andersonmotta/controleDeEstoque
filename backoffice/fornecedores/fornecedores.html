@@ -7,9 +7,27 @@
     <title>Fornecedores</title>
     <link rel="stylesheet" type="text/css" href="../../estoque_geral.css">
     <link rel="stylesheet" type="text/css" href="fornecedores.css">
+    <script src="../../utils/utils.js"></script>
+
 </head>
 
 <body>
+    <div id="listaContatosForn" class="popup ocultarPopup">
+        <div class="janelaPopup">
+            <div class="tituloPopup">
+                <div id="tituloPopupPesquisar">Lista de Contatos</div>
+                <img src="../../imagens/fechar.svg" alt="" class="btn_janelaoper" id="btn_fecharPopupListaContatos">
+            </div>
+            <div class="corpoPopup">
+                <div id="grid_novosContatosForn">
+                    Grid contatos Fornecedores
+                </div>
+            </div>
+            <div class="rodapePopup">
+                <button id="btn_pesquisar" class="btn_comandoPopup">pesquisar</button>
+            </div>
+        </div>
+    </div>
     <div id="topoJanela" class="topoJanela">
         <div></div>
         <div>Fornecedores</div>
@@ -79,6 +97,12 @@
                 </div>
                 <div class="campoForm2">
                     <img src="#" id="img_foto" class="img_foto" alt="">
+                </div>
+                <div class="campoForm2">
+                    <button id="btn_listarContatosForns" class="btn_comandoPopup">listar contatos fornecedor</button>
+                </div>
+                <div class="campoForm2">
+
                 </div>
             </div>
             <div class="rodapePopup">

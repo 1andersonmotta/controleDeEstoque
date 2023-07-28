@@ -1,9 +1,11 @@
+
 import { Cxmsg } from "../../utils/cxmsg.js";
 
 const dadosGrid = document.querySelector("#dadosGrid");
 const btn_add = document.querySelector("#btn_add");
 const novoFornecedor = document.querySelector("#novoFornecedor");
 const btn_fecharPopup = document.querySelector("#btn_fecharPopup");
+const btn_fecharPopupListaContatos = document.querySelector("#btn_fecharPopupListaContatos");
 const btn_fecharPopupPesq = document.querySelector("#btn_fecharPopupPesq");
 const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
@@ -20,6 +22,8 @@ const f_pesqId = document.querySelector("#f_pesqId");
 const f_pesqNome = document.querySelector("#f_pesqNome");
 const btn_pesquisar = document.querySelector("#btn_pesquisar");
 const btn_listartudo = document.querySelector("#btn_listartudo");
+const listaContatosForn = document.querySelector("#listaContatosForn");
+const btn_listarContatosForns = document.querySelector("#btn_listarContatosForns");
 
 let modojanela = "n";
 const serv = sessionStorage.getItem("servidor_nodered");
@@ -40,6 +44,9 @@ f_filtragem.addEventListener("keyup", (evt) => {
 })
 btn_fecharPopupPesq.addEventListener("click", (evt) => {
     pesquisa.classList.add("ocultarPopup")
+})
+btn_fecharPopupListaContatos.addEventListener("click", (evt) => {
+    listaContatosForn.classList.add("ocultarPopup")
 })
 btn_pesq.addEventListener("click", (evt) => {
     pesquisa.classList.remove("ocultarPopup")
@@ -301,3 +308,10 @@ const convert_image_b64 = (localDestino, arquivoimg) => {
 f_foto.addEventListener("change", (evt) => {
     convert_image_b64(img_foto, evt.target.files[0])
 })
+
+btn_listarContatosForns.addEventListener("click", (evt) => {
+    let mzi = maiorZIndex() + 1;
+    listaContatosForn.classList.remove("ocultarPopup")
+    listaContatosForn.setAttribute("style", `z-index:${mzi} !important`)
+})
+
