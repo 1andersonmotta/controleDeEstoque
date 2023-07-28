@@ -19,12 +19,23 @@
                 <img src="../../imagens/fechar.svg" alt="" class="btn_janelaoper" id="btn_fecharPopupListaContatos">
             </div>
             <div class="corpoPopup">
-                <div id="grid_novosContatosForn">
-                    Grid contatos Fornecedores
+                <div id="grid_novosContatosForn" class="grid">
+                    <div class="tituloGrid">
+                        <div class="colunaTituloGrid c1_lcf">ID</div>
+                        <div class="colunaTituloGrid c2_lcf">Nome</div>
+                        <div class="colunaTituloGrid c3_lcf">Operações</div>
+                    </div>
+                    <div id="dadosGrid_novosContatosForn" class="dadosGrid">
+                        <!-- <div class="linhaGrid">
+                            <div class="colunaLinhaGrid c1_lcf">id</div>
+                            <div class="colunaLinhaGrid c2_lcf">nome</div>
+                            <div class="colunaLinhaGrid c3_lcf">operações</div>
+                        </div> -->
+                    </div>
                 </div>
             </div>
             <div class="rodapePopup">
-                <button id="btn_pesquisar" class="btn_comandoPopup">pesquisar</button>
+                <button id="btn_criarNovoContatoForn" class="btn_comandoPopup">Criar Novo Contato</button>
             </div>
         </div>
     </div>
@@ -98,11 +109,24 @@
                 <div class="campoForm2">
                     <img src="#" id="img_foto" class="img_foto" alt="">
                 </div>
-                <div class="campoForm2">
+                <div class="campoForm">
                     <button id="btn_listarContatosForns" class="btn_comandoPopup">listar contatos fornecedor</button>
                 </div>
-                <div class="campoForm2">
-
+                <div class="campoForm">
+                    <div id="grid_listContatosFornAdd" class="grid">
+                        <div class="tituloGrid">
+                            <div class="colunaTituloGrid c1_lcf">ID</div>
+                            <div class="colunaTituloGrid c2_lcf">Nome</div>
+                            <div class="colunaTituloGrid c3_lcf">Operações</div>
+                        </div>
+                        <div id="dadosGrid_contatosFornAdd" class="dadosGrid">
+                            <!-- <div class="linhaGrid">
+                                    <div class="colunaLinhaGrid c1_lcf">id</div>
+                                    <div class="colunaLinhaGrid c2_lcf">nome</div>
+                                    <div class="colunaLinhaGrid c3_lcf">operações</div>
+                                </div> -->
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="rodapePopup">

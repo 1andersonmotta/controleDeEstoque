@@ -24,6 +24,8 @@ const btn_pesquisar = document.querySelector("#btn_pesquisar");
 const btn_listartudo = document.querySelector("#btn_listartudo");
 const listaContatosForn = document.querySelector("#listaContatosForn");
 const btn_listarContatosForns = document.querySelector("#btn_listarContatosForns");
+const dadosGrid_novosContatosForn = document.querySelector("#dadosGrid_novosContatosForn");
+const dadosGrid_contatosFornAdd = document.querySelector("#dadosGrid_contatosFornAdd");
 
 let modojanela = "n";
 const serv = sessionStorage.getItem("servidor_nodered");
@@ -85,9 +87,7 @@ btn_pesquisar.addEventListener("click", (evt) => {
             texto: "Digite o nome ou ID",
             cor: "#00f",
             tipo: "ok",
-            ok: () => {
-
-            },
+            ok: () => { },
             sim: null,
             nao: null
         }
@@ -163,7 +163,6 @@ const criarLinha = (e) => {
                     if (res.status == 200) {
                         evt.target.setAttribute("src", "../../imagens/on.svg");
                         evt.target.parentNode.parentNode.childNodes[2].innerHTML = "A"
-
                     }
                 })
         }
@@ -192,7 +191,6 @@ const criarLinha = (e) => {
                     img_foto.classList.remove("esconderElemento")
                 }
             })
-
     })
 
     divc4.appendChild(img_editar);
@@ -201,6 +199,88 @@ const criarLinha = (e) => {
     img_remover.setAttribute("class", "icone_op");
     divc4.appendChild(img_remover);
     dadosGrid.appendChild(divlinha);
+};
+
+const addContForn = (id, nome) => {
+    const divlinha = document.createElement("div");
+    divlinha.setAttribute("class", "linhaGrid");
+
+    const divc1 = document.createElement("div");
+    divc1.setAttribute("class", "colunaLinhaGrid c1_lcf");
+    divc1.innerHTML = id;
+    divlinha.appendChild(divc1);
+
+    const divc2 = document.createElement("div");
+    divc2.setAttribute("class", "colunaLinhaGrid c2_lcf");
+    divc2.innerHTML = nome;
+    divlinha.appendChild(divc2);
+
+    const divc3 = document.createElement("div");
+    divc3.setAttribute("class", "colunaLinhaGrid c3_lcf");
+    divlinha.appendChild(divc3);
+
+    const img_removeContForn = document.createElement("img");
+    img_removeContForn.setAttribute("src", "../../imagens/delete.svg");
+    img_removeContForn.setAttribute("class", "icone_op");
+    img_removeContForn.addEventListener("click", (evt) => {
+        evt.target.parentNode.parentNode.remove()
+    })
+    divc3.appendChild(img_removeContForn);
+
+    dadosGrid_contatosFornAdd.appendChild(divlinha)
+}
+
+const mostrarTelefonesForn = () => {
+
+}
+const criarLinhaContForn = (e) => {
+    const divlinha = document.createElement("div");
+    divlinha.setAttribute("class", "linhaGrid");
+
+    const divc1 = document.createElement("div");
+    divc1.setAttribute("class", "colunaLinhaGrid c1_lcf");
+    divc1.innerHTML = e.n_pessoa_pessoa;
+    divlinha.appendChild(divc1);
+
+    const divc2 = document.createElement("div");
+    divc2.setAttribute("class", "colunaLinhaGrid c2_lcf");
+    divc2.innerHTML = e.s_nome_pessoa;
+    divlinha.appendChild(divc2);
+
+    const divc3 = document.createElement("div");
+    divc3.setAttribute("class", "colunaLinhaGrid c3_lcf");
+    divlinha.appendChild(divc3);
+
+    const img_addContForn = document.createElement("img");
+    img_addContForn.setAttribute("src", "../../imagens/addContForn.svg");
+    img_addContForn.setAttribute("class", "icone_op");
+    img_addContForn.addEventListener("click", (evt) => {
+        const linha = evt.target.parentNode.parentNode;
+        const id = linha.childNodes[0].innerHTML
+        const nome = linha.childNodes[1].innerHTML
+        addContForn(id, nome)
+    })
+    divc3.appendChild(img_addContForn);
+
+    const img_verFoneContForn = document.createElement("img");
+    img_verFoneContForn.setAttribute("src", "../../imagens/verTelefones.svg");
+    img_verFoneContForn.setAttribute("class", "icone_op");
+    img_verFoneContForn.addEventListener("click", (evt) => {
+        const id = evt.target.parentNode.parentNode.firstChild.innerHTML
+        let endpoint = `${serv}/retornaTelefones/${id}`;
+        fetch(endpoint)
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res)
+                res.forEach(e => {
+                    console.log(e.s_numero_telefone)
+                })
+            })
+
+    })
+    divc3.appendChild(img_verFoneContForn);
+
+    dadosGrid_novosContatosForn.appendChild(divlinha);
 };
 
 btn_add.addEventListener("click", (evt) => {
@@ -313,5 +393,15 @@ btn_listarContatosForns.addEventListener("click", (evt) => {
     let mzi = maiorZIndex() + 1;
     listaContatosForn.classList.remove("ocultarPopup")
     listaContatosForn.setAttribute("style", `z-index:${mzi} !important`)
+    dadosGrid_novosContatosForn.innerHTML = "";
+    let endpoint = `${serv}/todasPessoasForn`;
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(res => {
+            res.forEach(e => {
+                criarLinhaContForn(e)
+            })
+        })
 })
+
 
