@@ -248,7 +248,6 @@ const addContForn = (id, nome) => {
                     addTelefoneContForn(e.s_numero_telefone)
                 })
             })
-
     })
     divc3.appendChild(img_verFoneContForn);
 
