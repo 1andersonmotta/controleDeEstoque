@@ -179,18 +179,18 @@ const criarLinha = (e) => {
     divlinha.appendChild(divc5);
 
     const img_status = document.createElement("img");
-    if (e.c_status_pessoa == "A") {
+    if (e.c_status_produto == "A") {
 
         img_status.setAttribute("src", "../../imagens/on.svg");
     } else {
         img_status.setAttribute("src", "../../imagens/off.svg");
     }
-    img_status.setAttribute("data-idcolab", e.n_pessoa_pessoa);
+    img_status.setAttribute("data-idprod", e.n_cod_produto);
     img_status.setAttribute("class", "icone_op");
     img_status.addEventListener("click", (evt) => {
-        const idcolab = evt.target.dataset.idcolab;
+        const idprod = evt.target.dataset.idprod;
         if (evt.target.getAttribute("src") == "../../imagens/on.svg") {
-            const endpoint_mudarStatus = `${serv}/mudarStatusColab/${idcolab}/I`
+            const endpoint_mudarStatus = `${serv}/mudarStatusProd/${idprod}/I`
             fetch(endpoint_mudarStatus)
                 .then(res => {
                     if (res.status == 200) {
@@ -198,7 +198,7 @@ const criarLinha = (e) => {
                     }
                 })
         } else {
-            const endpoint_mudarStatus = `${serv}/mudarStatusColab/${idcolab}/A`
+            const endpoint_mudarStatus = `${serv}/mudarStatusProd/${idprod}/A`
             fetch(endpoint_mudarStatus)
                 .then(res => {
                     if (res.status == 200) {
@@ -220,29 +220,13 @@ const criarLinha = (e) => {
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
-                btn_gravarPopup.setAttribute("data-idcolab", id)
+                btn_gravarPopup.setAttribute("data-idprod", id)
                 f_nome.value = res[0].s_nome_pessoa;
                 f_tipoColab.value = res[0].n_tipopessoa_tipopessoa;
                 f_status.value = res[0].c_status_pessoa;
                 img_foto.src = res[0].s_foto_pessoa;
                 novoProduto.classList.remove("ocultarPopup")
-                if (img_foto.src == "" || img_foto.src == "#") {
-                    img_foto.classList.add("esconderElemento");
-                } else {
-                    img_foto.classList.remove("esconderElemento")
-                }
             })
-
-        endpoint = `${serv}/telefonescolab/${id}`;
-        fetch(endpoint)
-            .then(res => res.json())
-            .then(res => {
-                telefones.innerHTML = ""
-                res.forEach(e => {
-                    criarCxTelefone(e.s_numero_telefone, e.n_telefone_telefone, "e")
-                });
-            })
-
     })
 
     divc5.appendChild(img_editar);
