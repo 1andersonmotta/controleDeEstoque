@@ -1,15 +1,18 @@
 import { Cxmsg } from "../../utils/cxmsg.js";
 
+
 const dadosGrid = document.querySelector("#dadosGrid");
 const btn_add = document.querySelector("#btn_add");
-const novoColaborador = document.querySelector("#novoColaborador");
+const novoProduto = document.querySelector("#novoProduto");
+
+
+
 const btn_fecharPopup = document.querySelector("#btn_fecharPopup");
 const btn_fecharPopupPesq = document.querySelector("#btn_fecharPopupPesq");
 const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
 const telefones = document.querySelector("#telefones");
-const f_fone = document.querySelector("#f_fone");
-const f_tipoColab = document.querySelector("#f_tipoColab");
+const f_tipoprod = document.querySelector("#f_tipoprod");
 const f_nome = document.querySelector("#f_nome");
 const f_status = document.querySelector("#f_status");
 const f_foto = document.querySelector("#f_foto");
@@ -223,7 +226,7 @@ const criarLinha = (e) => {
                 f_tipoColab.value = res[0].n_tipopessoa_tipopessoa;
                 f_status.value = res[0].c_status_pessoa;
                 img_foto.src = res[0].s_foto_pessoa;
-                novoColaborador.classList.remove("ocultarPopup")
+                novoProduto.classList.remove("ocultarPopup")
                 if (img_foto.src == "" || img_foto.src == "#") {
                     img_foto.classList.add("esconderElemento");
                 } else {
@@ -253,35 +256,37 @@ const criarLinha = (e) => {
     dadosGrid.appendChild(divlinha);
 };
 
-const endpointTipoColab = `${serv}/tipousuarios`;
-fetch(endpointTipoColab)
-    .then(res => res.json())
-    .then(res => {
-        f_tipoColab.innerHTML = "";
-        res.forEach(e => {
-            const opt = document.createElement("option");
-            opt.setAttribute("value", e.n_tipopessoa_tipopessoa)
-            opt.innerHTML = e.s_desc_tipopessoa;
-            f_tipoColab.appendChild(opt);
-        })
+const listaTiposProd = () => {
+    const endpoint = `${serv}/tiposprod`;
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(res => {
+            f_tipoprod.innerHTML = "";
+            res.forEach(e => {
+                const opt = document.createElement("option");
+                opt.setAttribute("value", e.n_tipoproduto_tipoproduto)
+                opt.innerHTML = e.s_desc_tipoproduto;
+                f_tipoprod.appendChild(opt);
+            })
 
-    })
+        })
+}
 
 btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
-    document.getElementById("tituloPopup").innerHTML = "Nova Pessoa";
-    novoColaborador.classList.remove("ocultarPopup");
-    img_foto.classList.add("esconderElemento");
-    f_nome.value = "";
-    f_tipoColab.value = "";
-    f_status.value = "";
-    f_foto.value = "";
-    img_foto.setAttribute("src", "#");
-    telefones.innerHTML = "";
+    document.getElementById("tituloPopup").innerHTML = "Novo Produto";
+    novoProduto.classList.remove("ocultarPopup");
+    f_codprod.value = "";
+    f_descprod.value = "";
+    f_qtdeprod.value = "1";
+    f_tipoprod.value = "-1";
+    f_fornprod.value = "-1";
+    f_statusprod.value = "A";
+    listaTiposProd()
 })
 
 btn_fecharPopup.addEventListener("click", (evt) => {
-    novoColaborador.classList.add("ocultarPopup")
+    novoProduto.classList.add("ocultarPopup")
 })
 
 btn_gravarPopup.addEventListener("click", (evt) => {
@@ -365,41 +370,6 @@ btn_gravarPopup.addEventListener("click", (evt) => {
 })
 
 btn_cancelarPopup.addEventListener("click", (evt) => {
-    novoColaborador.classList.add("ocultarPopup")
+    // novoProduto.classList.add("ocultarPopup")
 })
 
-f_fone.addEventListener("keyup", (evt) => {
-    if (evt.key == "Enter") {
-        if (evt.target.value.length >= 8) {
-            criarCxTelefone(evt.target.value, "-1", "n")
-            evt.target.value = "";
-        } else {
-            const config = {
-                titulo: "OK",
-                texto: "Número de telefone inválido! ex:15997897412",
-                cor: "#f00",
-                tipo: "ok",
-                ok: () => { },
-                sim: () => { },
-                nao: () => { }
-            }
-            Cxmsg.mostrar(config)
-        }
-    }
-})
-
-const convert_image_b64 = (localDestino, arquivoimg) => {
-    const obj = arquivoimg;
-    const reader = new FileReader();
-    reader.addEventListener("load", (evt) => {
-        const res = reader.result;
-        localDestino.src = res;
-    });
-    if (obj) {
-        reader.readAsDataURL(obj);
-    }
-}
-
-f_foto.addEventListener("change", (evt) => {
-    convert_image_b64(img_foto, evt.target.files[0])
-})
