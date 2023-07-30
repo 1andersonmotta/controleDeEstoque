@@ -47,6 +47,14 @@ CREATE TABLE `tipoproduto` (
   `s_desc_tipoproduto` varchar(255)
 );
 
+CREATE TABLE `movimentacao` (
+  `n_movimentacao_movimentacao` int PRIMARY KEY AUTO_INCREMENT,
+  `n_pessoa_pessoa` int,
+  `c_tipo_movimentacao` char,
+  `n_qtde_movimentacao` int,
+  `dt_datahora_movimentacao` datetime
+);
+
 ALTER TABLE `pessoa` ADD FOREIGN KEY (`n_fornecedor_fornecedor`) REFERENCES `fornecedor` (`n_fornecedor_fornecedor`);
 
 ALTER TABLE `pessoa` ADD FOREIGN KEY (`n_tipopessoa_tipopessoa`) REFERENCES `tipopessoa` (`n_tipopessoa_tipopessoa`);
@@ -60,3 +68,5 @@ ALTER TABLE `Contatofornecedor` ADD FOREIGN KEY (`n_pessoa_pessoa`) REFERENCES `
 ALTER TABLE `produto` ADD FOREIGN KEY (`n_tipoProduto_tipoProduto`) REFERENCES `tipoproduto` (`n_tipoproduto_tipoproduto`);
 
 ALTER TABLE `produto` ADD FOREIGN KEY (`n_fornecedor_fornecedor`) REFERENCES `fornecedor` (`n_fornecedor_fornecedor`);
+
+ALTER TABLE `movimentacao` ADD FOREIGN KEY (`n_pessoa_pessoa`) REFERENCES `pessoa` (`n_pessoa_pessoa`);
