@@ -13,10 +13,9 @@ const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
 const telefones = document.querySelector("#telefones");
 const f_tipoprod = document.querySelector("#f_tipoprod");
+const f_fornprod = document.querySelector("#f_fornprod");
 const f_nome = document.querySelector("#f_nome");
 const f_status = document.querySelector("#f_status");
-const f_foto = document.querySelector("#f_foto");
-const img_foto = document.querySelector("#img_foto");
 const f_filtragem = document.querySelector("#f_filtragem");
 const pesquisa = document.querySelector("#pesquisa");
 const btn_pesq = document.querySelector("#btn_pesq");
@@ -96,7 +95,7 @@ btn_pesquisar.addEventListener("click", (evt) => {
 });
 
 btn_listartudo.addEventListener("click", (evt) => {
-    carregarTodosColabs(evt)
+    carregarTodosProds(evt)
 })
 const criarCxTelefone = (fone, idtel, tipo) => {
     const divTel = document.createElement("div")
@@ -138,8 +137,8 @@ const criarCxTelefone = (fone, idtel, tipo) => {
     telefones.appendChild(divTel)
 }
 
-const carregarTodosColabs = () => {
-    const endpoint = `${serv}/todosusuarios`;
+const carregarTodosProds = () => {
+    const endpoint = `${serv}/todosprodutos`;
     fetch(endpoint)
         .then(res => res.json())
         .then(res => {
@@ -149,7 +148,7 @@ const carregarTodosColabs = () => {
             });
         });
 }
-carregarTodosColabs()
+carregarTodosProds()
 
 const criarLinha = (e) => {
     const divlinha = document.createElement("div");
@@ -157,22 +156,22 @@ const criarLinha = (e) => {
 
     const divc1 = document.createElement("div");
     divc1.setAttribute("class", "colunaLinhaGrid c1");
-    divc1.innerHTML = e.n_pessoa_pessoa;
+    divc1.innerHTML = e.n_cod_produto;
     divlinha.appendChild(divc1);
 
     const divc2 = document.createElement("div");
     divc2.setAttribute("class", "colunaLinhaGrid c2");
-    divc2.innerHTML = e.s_nome_pessoa;
+    divc2.innerHTML = e.s_desc_produto;
     divlinha.appendChild(divc2);
 
     const divc3 = document.createElement("div");
     divc3.setAttribute("class", "colunaLinhaGrid c3");
-    divc3.innerHTML = e.n_tipopessoa_tipopessoa;
+    divc3.innerHTML = e.n_qtde_produto;
     divlinha.appendChild(divc3);
 
     const divc4 = document.createElement("div");
     divc4.setAttribute("class", "colunaLinhaGrid c4");
-    divc4.innerHTML = e.c_status_pessoa;
+    divc4.innerHTML = e.c_status_produto;
     divlinha.appendChild(divc4);
 
     const divc5 = document.createElement("div");
@@ -272,6 +271,22 @@ const listaTiposProd = () => {
         })
 }
 
+const listaFornProd = () => {
+    const endpoint = `${serv}/fornprod`;
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(res => {
+            f_fornprod.innerHTML = "";
+            res.forEach(e => {
+                const opt = document.createElement("option");
+                opt.setAttribute("value", e.n_fornecedor_fornecedor)
+                opt.innerHTML = e.s_desc_fornecedor;
+                f_fornprod.appendChild(opt);
+            })
+
+        })
+}
+
 btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
     document.getElementById("tituloPopup").innerHTML = "Novo Produto";
@@ -283,6 +298,7 @@ btn_add.addEventListener("click", (evt) => {
     f_fornprod.value = "-1";
     f_statusprod.value = "A";
     listaTiposProd()
+    listaFornProd()
 })
 
 btn_fecharPopup.addEventListener("click", (evt) => {
@@ -290,19 +306,13 @@ btn_fecharPopup.addEventListener("click", (evt) => {
 })
 
 btn_gravarPopup.addEventListener("click", (evt) => {
-    const tels = [...document.querySelectorAll(".novoTel")];
-    let numTels = [];
-    tels.forEach((t) => {
-        numTels.push(t.innerHTML);
-    })
-
     const dados = {
-        n_pessoa_pessoa: evt.target.dataset.idcolab,
-        s_nome_pessoa: f_nome.value,
-        n_tipopessoa_tipopessoa: f_tipoColab.value,
-        c_status_pessoa: f_status.value,
-        numtelefones: numTels,
-        s_foto_pessoa: img_foto.getAttribute("src"),
+        n_cod_produto: f_codprod.value,
+        n_tipoProduto_tipoProduto: f_tipoprod.value,
+        s_desc_produto: f_descprod.value,
+        n_fornecedor_fornecedor: f_fornprod.value,
+        n_qtde_produto: f_qtdeprod.value,
+        c_status_produto: f_statusprod.value,
     }
 
     const cabecalho = {
@@ -311,7 +321,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
     }
     let endpointnovoeditarcolab = null;
     if (modojanela == "n") {
-        endpointnovoeditarcolab = `${serv}/novocolab`
+        endpointnovoeditarcolab = `${serv}/novoprod`
     } else {
         endpointnovoeditarcolab = `${serv}/editarcolab`
     }
@@ -322,7 +332,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                 if (modojanela == "n") {
                     const config = {
                         titulo: "OK",
-                        texto: "Nova pessoa gravada",
+                        texto: "Produto adicionado com sucesso",
                         cor: "#0f0",
                         tipo: "ok",
                         ok: () => { },
@@ -330,17 +340,17 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                         nao: () => { }
                     }
                     Cxmsg.mostrar(config)
-                    f_nome.value = "";
-                    f_tipoColab.value = "";
-                    f_status.value = "";
-                    f_foto.value = "";
-                    img_foto.setAttribute("src", "#");
-                    telefones.innerHTML = "";
-                    carregarTodosColabs();
+                    f_codprod.value = "";
+                    f_descprod.value = "";
+                    f_qtdeprod.value = "1";
+                    f_tipoprod.value = "-1";
+                    f_fornprod.value = "-1";
+                    f_statusprod.value = "A";
+                    carregarTodosProds();
                 } else {
                     const config = {
                         titulo: "OK",
-                        texto: "Pessoa editada com sucesso!",
+                        texto: "Produto editado com sucesso!",
                         cor: "#0f0",
                         tipo: "ok",
                         ok: () => { },
