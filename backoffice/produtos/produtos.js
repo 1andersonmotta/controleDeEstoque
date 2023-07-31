@@ -24,9 +24,43 @@ const f_pesqNome = document.querySelector("#f_pesqNome");
 const btn_pesquisar = document.querySelector("#btn_pesquisar");
 const btn_listartudo = document.querySelector("#btn_listartudo");
 
-//n novo colaborator | e Editar colaborator
 let modojanela = "n";
 const serv = sessionStorage.getItem("servidor_nodered");
+
+const listaTiposProd = () => {
+    const endpoint = `${serv}/tiposprod`;
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(res => {
+            f_tipoprod.innerHTML = "";
+            res.forEach(e => {
+                const opt = document.createElement("option");
+                opt.setAttribute("value", e.n_tipoproduto_tipoproduto)
+                opt.innerHTML = e.s_desc_tipoproduto;
+                f_tipoprod.appendChild(opt);
+            })
+
+        })
+}
+
+const listaFornProd = () => {
+    const endpoint = `${serv}/fornprod`;
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(res => {
+            f_fornprod.innerHTML = "";
+            res.forEach(e => {
+                const opt = document.createElement("option");
+                opt.setAttribute("value", e.n_fornecedor_fornecedor)
+                opt.innerHTML = e.s_desc_fornecedor;
+                f_fornprod.appendChild(opt);
+            })
+
+        })
+}
+listaTiposProd()
+listaFornProd()
+//n novo colaborator | e Editar colaborator
 
 f_filtragem.addEventListener("keyup", (evt) => {
     const linhas = [...document.querySelectorAll(".linhaGrid")];
@@ -215,16 +249,19 @@ const criarLinha = (e) => {
     img_editar.addEventListener("click", (evt) => {
         const id = evt.target.parentNode.parentNode.firstChild.innerHTML
         modojanela = "e";
-        document.getElementById("tituloPopup").innerHTML = "Editar Pessoa";
-        let endpoint = `${serv}/dadoscolab/${id}`;
+        document.getElementById("tituloPopup").innerHTML = "Editar Produto";
+        let endpoint = `${serv}/dadosprod/${id}`;
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
                 btn_gravarPopup.setAttribute("data-idprod", id)
-                f_nome.value = res[0].s_nome_pessoa;
-                f_tipoColab.value = res[0].n_tipopessoa_tipopessoa;
-                f_status.value = res[0].c_status_pessoa;
-                img_foto.src = res[0].s_foto_pessoa;
+                f_codprod.value = res[0].n_cod_produto;
+                f_descprod.value = res[0].s_desc_produto;
+                f_qtdeprod.value = res[0].n_qtde_produto;
+                f_tipoprod.value = res[0].n_tipoProduto_tipoProduto;
+                f_fornprod.value = res[0].n_fornecedor_fornecedor;
+                f_statusprod.value = res[0].c_status_produto;
+
                 novoProduto.classList.remove("ocultarPopup")
             })
     })
@@ -239,37 +276,7 @@ const criarLinha = (e) => {
     dadosGrid.appendChild(divlinha);
 };
 
-const listaTiposProd = () => {
-    const endpoint = `${serv}/tiposprod`;
-    fetch(endpoint)
-        .then(res => res.json())
-        .then(res => {
-            f_tipoprod.innerHTML = "";
-            res.forEach(e => {
-                const opt = document.createElement("option");
-                opt.setAttribute("value", e.n_tipoproduto_tipoproduto)
-                opt.innerHTML = e.s_desc_tipoproduto;
-                f_tipoprod.appendChild(opt);
-            })
 
-        })
-}
-
-const listaFornProd = () => {
-    const endpoint = `${serv}/fornprod`;
-    fetch(endpoint)
-        .then(res => res.json())
-        .then(res => {
-            f_fornprod.innerHTML = "";
-            res.forEach(e => {
-                const opt = document.createElement("option");
-                opt.setAttribute("value", e.n_fornecedor_fornecedor)
-                opt.innerHTML = e.s_desc_fornecedor;
-                f_fornprod.appendChild(opt);
-            })
-
-        })
-}
 
 btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
