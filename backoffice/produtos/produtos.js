@@ -11,10 +11,8 @@ const btn_fecharPopup = document.querySelector("#btn_fecharPopup");
 const btn_fecharPopupPesq = document.querySelector("#btn_fecharPopupPesq");
 const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
-const telefones = document.querySelector("#telefones");
 const f_tipoprod = document.querySelector("#f_tipoprod");
 const f_fornprod = document.querySelector("#f_fornprod");
-const f_nome = document.querySelector("#f_nome");
 const f_status = document.querySelector("#f_status");
 const f_filtragem = document.querySelector("#f_filtragem");
 const pesquisa = document.querySelector("#pesquisa");
@@ -23,6 +21,7 @@ const f_pesqId = document.querySelector("#f_pesqId");
 const f_pesqNome = document.querySelector("#f_pesqNome");
 const btn_pesquisar = document.querySelector("#btn_pesquisar");
 const btn_listartudo = document.querySelector("#btn_listartudo");
+const movEstoque = document.querySelector("#movEstoque");
 
 let modojanela = "n";
 const serv = sessionStorage.getItem("servidor_nodered");
@@ -100,7 +99,7 @@ btn_pesquisar.addEventListener("click", (evt) => {
         tipo = "nome"
     }
     if (f_pesq.value != "") {
-        const endpointpesq = `${serv}/pesquisacolab/${tipo}/${f_pesq.value}`;
+        const endpointpesq = `${serv}/pesquisaprod/${tipo}/${f_pesq.value}`;
         fetch(endpointpesq)
             .then(res => res.json())
             .then(res => {
@@ -113,7 +112,7 @@ btn_pesquisar.addEventListener("click", (evt) => {
     } else {
         const config = {
             titulo: "Alerta",
-            texto: "Digite o nome ou ID da Pessoa",
+            texto: "Digite o nome ou ID da Produto",
             cor: "#00f",
             tipo: "ok",
             ok: () => {
@@ -207,6 +206,7 @@ const criarLinha = (e) => {
     const img_editar = document.createElement("img");
     img_editar.setAttribute("src", "../../imagens/edit.svg");
     img_editar.setAttribute("class", "icone_op");
+    img_editar.setAttribute("title", "Editar o produto");
     img_editar.addEventListener("click", (evt) => {
         const id = evt.target.parentNode.parentNode.firstChild.innerHTML
         modojanela = "e";
@@ -229,10 +229,14 @@ const criarLinha = (e) => {
 
     divc5.appendChild(img_editar);
 
-    const img_remover = document.createElement("img");
-    img_remover.setAttribute("src", "../../imagens/delete.svg");
-    img_remover.setAttribute("class", "icone_op");
-    divc5.appendChild(img_remover);
+    const img_movimentar = document.createElement("img");
+    img_movimentar.setAttribute("src", "../../imagens/moveb.svg");
+    img_movimentar.setAttribute("class", "icone_op");
+    img_movimentar.setAttribute("title", "Movimentar o produto");
+    img_movimentar.addEventListener("click", (evt) => {
+        movEstoque.classList.remove("ocultarPopup");
+    })
+    divc5.appendChild(img_movimentar);
 
     dadosGrid.appendChild(divlinha);
 };
