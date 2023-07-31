@@ -1,13 +1,10 @@
 import { Cxmsg } from "../../utils/cxmsg.js";
 
-
 const dadosGrid = document.querySelector("#dadosGrid");
 const btn_add = document.querySelector("#btn_add");
 const novoProduto = document.querySelector("#novoProduto");
-
-
-
 const btn_fecharPopup = document.querySelector("#btn_fecharPopup");
+const btn_fecharPopupMov = document.querySelector("#btn_fecharPopupMov");
 const btn_fecharPopupPesq = document.querySelector("#btn_fecharPopupPesq");
 const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
@@ -77,6 +74,9 @@ f_filtragem.addEventListener("keyup", (evt) => {
 })
 btn_fecharPopupPesq.addEventListener("click", (evt) => {
     pesquisa.classList.add("ocultarPopup")
+})
+btn_fecharPopupMov.addEventListener("click", (evt) => {
+    movEstoque.classList.add("ocultarPopup")
 })
 btn_pesq.addEventListener("click", (evt) => {
     pesquisa.classList.remove("ocultarPopup")
@@ -182,6 +182,7 @@ const criarLinha = (e) => {
     img_status.setAttribute("data-idprod", e.n_cod_produto);
     img_status.setAttribute("class", "icone_op");
     img_status.addEventListener("click", (evt) => {
+        console.log('bateu');
         const idprod = evt.target.dataset.idprod;
         if (evt.target.getAttribute("src") == "../../imagens/on.svg") {
             const endpoint_mudarStatus = `${serv}/mudarStatusProd/${idprod}/I`
@@ -200,6 +201,7 @@ const criarLinha = (e) => {
                     }
                 })
         }
+        carregarTodosProds();
     });
     divc5.appendChild(img_status);
 
@@ -234,13 +236,26 @@ const criarLinha = (e) => {
     img_movimentar.setAttribute("class", "icone_op");
     img_movimentar.setAttribute("title", "Movimentar o produto");
     img_movimentar.addEventListener("click", (evt) => {
-        movEstoque.classList.remove("ocultarPopup");
+        const st = evt.target.parentNode.parentNode.childNodes[3].innerHTML;
+        if (st == "A") {
+            movEstoque.classList.remove("ocultarPopup");
+        } else {
+            const config = {
+                titulo: "Alerta",
+                texto: "Produto com status Inativo não pode ser movimentado",
+                cor: "#f00",
+                tipo: "ok",
+                ok: () => { },
+                sim: () => { },
+                nao: () => { }
+            }
+            Cxmsg.mostrar(config)
+        }
     })
     divc5.appendChild(img_movimentar);
 
     dadosGrid.appendChild(divlinha);
 };
-
 
 
 btn_add.addEventListener("click", (evt) => {

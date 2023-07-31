@@ -105,29 +105,29 @@
         <div class="janelaPopup">
             <div class="tituloPopup">
                 <div id="tituloPopup">Movimentação de Estoque</div>
-                <img src="../../imagens/fechar.svg" alt="" class="btn_janelaoper" id="btn_fecharPopup">
+                <img src="../../imagens/fechar.svg" alt="" class="btn_janelaoper" id="btn_fecharPopupMov">
             </div>
             <div class="corpoPopup">
                 <div class="campoForm">
-                    <label for="">Nome</label>
-                    <input type="text" id="f_nome" name="f_nome">
+                    <label for="">Código Produto</label>
+                    <input type="text" id="f_codprodmov" name="f_codprodmov">
                 </div>
                 <div class="campoForm">
-                    <label for="">Tipo</label>
-                    <select id="f_tipoColab" name="f_tipoColab">
-                        <option value="">test</option>
-                    </select>
+                    <label for="">Descrição</label>
+                    <input type="text" id="f_descprodmov" name="f_descprodmov">
                 </div>
                 <div class="campoForm">
-                    <label for="">Status</label>
-                    <select id="f_status" name="f_status">
-                        <option value="A">Ativo</option>
-                        <option value="I">Inativo</option>
-                    </select>
+                    <label for="">Quantidade</label>
+                    <input type="text" id="f_qtdeprodmov" name="f_qtdeprodmov">
+                </div>
+                <div class="campoForm">
+                    <label for="">Quantidade a ser registrada</label>
+                    <input type="number" value="0" min="0" id="f_qtdeprodregmov" name="f_qtdeprodregmov">
                 </div>
             </div>
             <div class="rodapePopup">
-                <button id="btn_gravarPopup" class="btn_comandoPopup">Registrar Movimentação</button>
+                <button id="btn_addqtde" class="btn_comandoPopup">Adicionar</button>
+                <button id="btn_removeqtde" class="btn_comandoPopup">Remover</button>
                 <button id="btn_cancelarPopup" class="btn_comandoPopup">cancelar</button>
             </div>
         </div>
