@@ -131,45 +131,6 @@ btn_pesquisar.addEventListener("click", (evt) => {
 btn_listartudo.addEventListener("click", (evt) => {
     carregarTodosProds(evt)
 })
-const criarCxTelefone = (fone, idtel, tipo) => {
-    const divTel = document.createElement("div")
-    divTel.setAttribute("class", "tel")
-
-    const numTel = document.createElement("div")
-    if (tipo == "n") {
-        numTel.setAttribute("class", "numTel novoTel")
-    } else {
-        numTel.setAttribute("class", "numTel editarTel")
-    }
-
-    numTel.innerHTML = fone;
-    divTel.appendChild(numTel)
-
-    const delTel = document.createElement("img")
-    delTel.setAttribute("src", "../../imagens/delete.svg")
-    delTel.setAttribute("class", "delTel")
-    delTel.setAttribute("data-idtel", idtel)
-    delTel.addEventListener("click", (evt) => {
-        if (idtel != "-1") {
-            const objTel = evt.target
-            const idtel = objTel.dataset.idtel;
-            const endpoint = `${serv}/${idtel}`
-            fetch(endpoint)
-                .then(res => {
-                    if (res.status == 200) {
-                        evt.target.parentNode.remove()
-                    }
-                })
-
-        } else {
-            evt.target.parentNode.remove()
-        }
-
-    })
-    divTel.appendChild(delTel)
-
-    telefones.appendChild(divTel)
-}
 
 const carregarTodosProds = () => {
     const endpoint = `${serv}/todosprodutos`;
@@ -312,9 +273,9 @@ btn_gravarPopup.addEventListener("click", (evt) => {
     }
     let endpointnovoeditarcolab = null;
     if (modojanela == "n") {
-        endpointnovoeditarcolab = `${serv}/novoprod`
+        endpointnovoeditarcolab = `${serv}/novoprod`;
     } else {
-        endpointnovoeditarcolab = `${serv}/editarcolab`
+        endpointnovoeditarcolab = `${serv}/editarprod`;
     }
 
     fetch(endpointnovoeditarcolab, cabecalho)
@@ -324,7 +285,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                     const config = {
                         titulo: "OK",
                         texto: "Produto adicionado com sucesso",
-                        cor: "#0f0",
+                        cor: "#00f",
                         tipo: "ok",
                         ok: () => { },
                         sim: () => { },
@@ -342,13 +303,14 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                     const config = {
                         titulo: "OK",
                         texto: "Produto editado com sucesso!",
-                        cor: "#0f0",
+                        cor: "#00f",
                         tipo: "ok",
                         ok: () => { },
                         sim: () => { },
                         nao: () => { }
                     }
                     Cxmsg.mostrar(config)
+                    carregarTodosProds()
                 }
 
 
@@ -365,7 +327,7 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                 Cxmsg.mostrar(config)
             }
         }).finally(() => {
-            img_foto.classList.add("esconderElemento");
+            // img_foto.classList.add("esconderElemento");
         })
 
 })
