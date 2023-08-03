@@ -10,7 +10,9 @@ const btn_gravarPopup = document.querySelector("#btn_gravarPopup");
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup");
 const f_tipoprod = document.querySelector("#f_tipoprod");
 const f_fornprod = document.querySelector("#f_fornprod");
-const f_status = document.querySelector("#f_status");
+const btn_removeqtde = document.querySelector("#btn_removeqtde");
+const btn_addqtde = document.querySelector("#btn_addqtde");
+const btn_gravarmov = document.querySelector("#btn_gravarmov");
 const f_filtragem = document.querySelector("#f_filtragem");
 const pesquisa = document.querySelector("#pesquisa");
 const btn_pesq = document.querySelector("#btn_pesq");
@@ -19,6 +21,10 @@ const f_pesqNome = document.querySelector("#f_pesqNome");
 const btn_pesquisar = document.querySelector("#btn_pesquisar");
 const btn_listartudo = document.querySelector("#btn_listartudo");
 const movEstoque = document.querySelector("#movEstoque");
+const f_codprodmov = document.querySelector("#f_codprodmov");
+const f_descprodmov = document.querySelector("#f_descprodmov");
+const f_qtdeprodmov = document.querySelector("#f_qtdeprodmov");
+const f_qtdeprodregmov = document.querySelector("#f_qtdeprodregmov");
 
 let modojanela = "n";
 const serv = sessionStorage.getItem("servidor_nodered");
@@ -236,9 +242,13 @@ const criarLinha = (e) => {
     img_movimentar.setAttribute("class", "icone_op");
     img_movimentar.setAttribute("title", "Movimentar o produto");
     img_movimentar.addEventListener("click", (evt) => {
-        const st = evt.target.parentNode.parentNode.childNodes[3].innerHTML;
-        if (st == "A") {
+        const l = evt.target.parentNode.parentNode;
+        if (l.childNodes[3].innerHTML == "A") {
+            f_codprodmov.value = l.childNodes[0].innerHTML;
+            f_descprodmov.value = l.childNodes[1].innerHTML;
+            f_qtdeprodmov.value = l.childNodes[2].innerHTML;
             movEstoque.classList.remove("ocultarPopup");
+
         } else {
             const config = {
                 titulo: "Alerta",
@@ -257,6 +267,48 @@ const criarLinha = (e) => {
     dadosGrid.appendChild(divlinha);
 };
 
+btn_gravarmov.addEventListener("click", (evt) => {
+    const dados = {
+        n_cod_produto: f_codprodmov.value,
+        n_qtde_produto: f_qtdeprodmov.value,
+    }
+    const cabecalho = {
+        method: 'post',
+        body: JSON.stringify(dados)
+    }
+    let endpoint = `${serv}/editarmovprod`;
+    fetch(endpoint, cabecalho)
+        .then(res => {
+            carregarTodosProds();
+        });
+})
+btn_addqtde.addEventListener("click", (evt) => {
+    let qtdeatual = parseInt(f_qtdeprodmov.value);
+    let qtdeadd = parseInt(f_qtdeprodregmov.value);
+    qtdeatual += qtdeadd
+    f_qtdeprodmov.value = qtdeatual;
+    f_qtdeprodregmov.value = "0";
+})
+btn_removeqtde.addEventListener("click", (evt) => {
+    let qtdeatual = parseInt(f_qtdeprodmov.value);
+    let qtdrem = parseInt(f_qtdeprodregmov.value);
+    if (qtdrem <= qtdeatual) {
+        qtdeatual -= qtdrem
+    } else {
+        const config = {
+            titulo: "Alerta",
+            texto: "Não é possivel remover uma quantidade maior que a quantidade total de um produto",
+            cor: "#f00",
+            tipo: "ok",
+            ok: () => { },
+            sim: () => { },
+            nao: () => { }
+        }
+        Cxmsg.mostrar(config)
+    }
+    f_qtdeprodmov.value = qtdeatual;
+    f_qtdeprodregmov.value = "0";
+})
 
 btn_add.addEventListener("click", (evt) => {
     modojanela = "n";
@@ -346,12 +398,12 @@ btn_gravarPopup.addEventListener("click", (evt) => {
                 Cxmsg.mostrar(config)
             }
         }).finally(() => {
-            // img_foto.classList.add("esconderElemento");
+            img_foto.classList.add("esconderElemento");
         })
 
 })
 
 btn_cancelarPopup.addEventListener("click", (evt) => {
-    // novoProduto.classList.add("ocultarPopup")
+    novoProduto.classList.add("ocultarPopup")
 })
 
