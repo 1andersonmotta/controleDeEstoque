@@ -1,3 +1,5 @@
+import { Cxmsg } from "../../utils/cxmsg.js";
+
 const f_email = document.querySelector("#f_email");
 const f_senha = document.querySelector("#f_senha");
 const btn_login = document.querySelector("#btn_login");
@@ -20,9 +22,35 @@ btn_login.addEventListener('click', (evt) => {
         const senha = f_senha.value;
         const endpoint = `${serv}/login/${email}/${senha}`
         fetch(endpoint)
-            .then(res => res.json())
             .then(res => {
-                console.log(res)
+                if (res.status == 200) {
+                    console.log("OK");
+                    console.log(res.status);
+
+                } else if (res.status == 208) {
+                    console.log("senha errada");
+                    console.log(res.status);
+
+                    const config = {
+                        titulo: "Erro",
+                        texto: "Senha incorreta",
+                        cor: "#00f",
+                        tipo: "ok",
+                        ok: () => {
+
+                        },
+                        sim: null,
+                        nao: null
+                    }
+                    Cxmsg.mostrar(config)
+
+                } else if (res.status == 205) {
+                    console.log("primeiro acesso");
+                    console.log(res.status);
+
+
+                }
             })
+
     }
 })
