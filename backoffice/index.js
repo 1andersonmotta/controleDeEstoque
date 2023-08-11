@@ -24,6 +24,7 @@ btn_login.addEventListener('click', (evt) => {
         fetch(endpoint)
             .then(res => {
                 if (res.status == 200) {
+                    window.location.href = "main.html"
                     console.log("OK");
                     console.log(res.status);
 
