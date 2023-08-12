@@ -3,6 +3,8 @@ import { Cxmsg } from "../../utils/cxmsg.js";
 const f_email = document.querySelector("#f_email");
 const f_senha = document.querySelector("#f_senha");
 const btn_login = document.querySelector("#btn_login");
+const primeiroAcesso = document.querySelector("#primeiroAcesso");
+const login = document.querySelector("#login");
 
 let serv = null;
 const endpoint_config = `../config.txt`;
@@ -19,27 +21,25 @@ fetch(endpoint_config)
 btn_login.addEventListener('click', (evt) => {
     if (serv != null) {
         const email = f_email.value;
-        const senha = f_senha.value;
+        let senha = f_senha.value;
+        if (senha == "") {
+            senha = "-1"
+        }
         const endpoint = `${serv}/login/${email}/${senha}`
         fetch(endpoint)
             .then(res => {
                 if (res.status == 200) {
                     window.location.href = "main.html"
                     console.log("OK");
-                    console.log(res.status);
 
                 } else if (res.status == 208) {
                     console.log("senha errada");
-                    console.log(res.status);
-
                     const config = {
                         titulo: "Erro",
                         texto: "Senha incorreta",
                         cor: "#00f",
                         tipo: "ok",
-                        ok: () => {
-
-                        },
+                        ok: () => { },
                         sim: null,
                         nao: null
                     }
@@ -47,9 +47,8 @@ btn_login.addEventListener('click', (evt) => {
 
                 } else if (res.status == 205) {
                     console.log("primeiro acesso");
-                    console.log(res.status);
-
-
+                    primeiroAcesso.classList.remove("ocultarPopup")
+                    login.classList.add("ocultarPopup")
                 }
             })
 
