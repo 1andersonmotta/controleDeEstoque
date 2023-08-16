@@ -27,12 +27,13 @@ btn_login.addEventListener('click', (evt) => {
         }
         const endpoint = `${serv}/login/${email}/${senha}`
         fetch(endpoint)
+            .then(res => res.json())
             .then(res => {
-                if (res.status == 200) {
+                if (res.retorno == 200) {
                     window.location.href = "main.html"
                     console.log("OK");
 
-                } else if (res.status == 208) {
+                } else if (res.retorno == 208) {
                     console.log("senha errada");
                     const config = {
                         titulo: "Erro",
@@ -45,7 +46,7 @@ btn_login.addEventListener('click', (evt) => {
                     }
                     Cxmsg.mostrar(config)
 
-                } else if (res.status == 205) {
+                } else if (res.retorno == 205) {
                     console.log("primeiro acesso");
                     primeiroAcesso.classList.remove("ocultarPopup")
                     login.classList.add("ocultarPopup")
