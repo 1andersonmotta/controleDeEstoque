@@ -5,6 +5,8 @@ const f_senha = document.querySelector("#f_senha");
 const btn_login = document.querySelector("#btn_login");
 const primeiroAcesso = document.querySelector("#primeiroAcesso");
 const login = document.querySelector("#login");
+const emaildefsenha = document.querySelector("#emaildefsenha");
+const btn_fecharPopupDefSenha = document.querySelector("#btn_fecharPopupDefSenha");
 
 let serv = null;
 const endpoint_config = `../config.txt`;
@@ -29,11 +31,11 @@ btn_login.addEventListener('click', (evt) => {
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
-                if (res.retorno == 200) {
+                if (res[0].retorno == 200) {
                     window.location.href = "main.html"
                     console.log("OK");
 
-                } else if (res.retorno == 208) {
+                } else if (res[0].retorno == 208) {
                     console.log("senha errada");
                     const config = {
                         titulo: "Erro",
@@ -46,12 +48,18 @@ btn_login.addEventListener('click', (evt) => {
                     }
                     Cxmsg.mostrar(config)
 
-                } else if (res.retorno == 205) {
+                } else if (res[0].retorno == 205) {
                     console.log("primeiro acesso");
+                    emaildefsenha.value = f_email.value;
                     primeiroAcesso.classList.remove("ocultarPopup")
                     login.classList.add("ocultarPopup")
                 }
             })
 
     }
+})
+
+btn_fecharPopupDefSenha.addEventListener("click", (evt) => {
+    primeiroAcesso.classList.add("ocultarPopup")
+    login.classList.remove("ocultarPopup")
 })
