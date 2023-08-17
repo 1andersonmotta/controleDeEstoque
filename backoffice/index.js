@@ -29,7 +29,6 @@ btn_login.addEventListener('click', () => {
     if (serv != null) {
         const email = f_email.value;
         let senha = f_senha.value;
-        console.log(email, senha)
         if (senha == "") {
             senha = "-1"
         }
@@ -37,10 +36,8 @@ btn_login.addEventListener('click', () => {
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
-                console.log(res[0])
                 if (res[0].retorno == 200) {
                     window.location.href = "./main.html"
-                    console.log("OK");
 
                 } else if (res[0].retorno == 208) {
                     console.log("senha errada");
@@ -73,7 +70,6 @@ btn_fecharPopupDefSenha.addEventListener("click", (evt) => {
 })
 
 btn_gravarSenha.addEventListener("click", (evt) => {
-    console.log(f_senha.value, "1-" + f_senha1.value, "2-" + f_senha2.value)
     if (f_senha1.value != "" && f_senha2.value != "") {
         if (f_senha1.value != f_senha2.value) {
             const config = {
