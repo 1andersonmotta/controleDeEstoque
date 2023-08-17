@@ -7,6 +7,11 @@ const primeiroAcesso = document.querySelector("#primeiroAcesso");
 const login = document.querySelector("#login");
 const emaildefsenha = document.querySelector("#emaildefsenha");
 const btn_fecharPopupDefSenha = document.querySelector("#btn_fecharPopupDefSenha");
+const iddefsenha = document.querySelector("#iddefsenha");
+const f_senha1 = document.querySelector("#f_senha1");
+const f_senha2 = document.querySelector("#f_senha2");
+const btn_gravarSenha = document.querySelector("#btn_gravarSenha");
+
 
 let serv = null;
 const endpoint_config = `../config.txt`;
@@ -16,14 +21,15 @@ fetch(endpoint_config)
         sessionStorage.setItem("servidor_nodered", res.servidor_nodered);
         sessionStorage.setItem("versao", res.versao);
         serv = res.servidor_nodered;
-    })
+    });
 
 
 
-btn_login.addEventListener('click', (evt) => {
+btn_login.addEventListener('click', () => {
     if (serv != null) {
         const email = f_email.value;
         let senha = f_senha.value;
+        console.log(email, senha)
         if (senha == "") {
             senha = "-1"
         }
@@ -31,8 +37,9 @@ btn_login.addEventListener('click', (evt) => {
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
+                console.log(res[0])
                 if (res[0].retorno == 200) {
-                    window.location.href = "main.html"
+                    window.location.href = "./main.html"
                     console.log("OK");
 
                 } else if (res[0].retorno == 208) {
@@ -48,8 +55,9 @@ btn_login.addEventListener('click', (evt) => {
                     }
                     Cxmsg.mostrar(config)
 
-                } else if (res[0].retorno == 205) {
+                } else if (res[0].retorno == 203) {
                     console.log("primeiro acesso");
+                    iddefsenha.value = res[0].n_pessoa_pessoa;
                     emaildefsenha.value = f_email.value;
                     primeiroAcesso.classList.remove("ocultarPopup")
                     login.classList.add("ocultarPopup")
@@ -62,4 +70,50 @@ btn_login.addEventListener('click', (evt) => {
 btn_fecharPopupDefSenha.addEventListener("click", (evt) => {
     primeiroAcesso.classList.add("ocultarPopup")
     login.classList.remove("ocultarPopup")
+})
+
+btn_gravarSenha.addEventListener("click", (evt) => {
+    if (f_senha.value != "" && f_senha2.value != "") {
+        if (f_senha1.value != f_senha2.value) {
+            const config = {
+                titulo: "Alerta",
+                texto: "Senhas não conferem",
+                cor: "#00f",
+                tipo: "ok",
+                ok: () => { },
+                sim: null,
+                nao: null
+            }
+            Cxmsg.mostrar(config)
+        } else {
+            const dados = {
+                n_pessoa_pessoa: iddefsenha.value,
+                s_senha_pessoa: f_senha1.value,
+            }
+            const cabecalho = {
+                method: 'post',
+                body: JSON.stringify(dados)
+            }
+            let endpoint = `${serv}/gravarnovasenha`;
+            fetch(endpoint, cabecalho)
+                .then(res => {
+                    if (res.status == 200) {
+                        primeiroAcesso.classList.add("ocultarPopup");
+                        login.classList.remove("ocultarPopup");
+                        f_senha.value = f_senha1.value
+                    }
+                });
+        }
+    } else {
+        const config = {
+            titulo: "Alerta",
+            texto: "Digite a Senha nos dois campos",
+            cor: "#00f",
+            tipo: "ok",
+            ok: () => { },
+            sim: null,
+            nao: null
+        }
+        Cxmsg.mostrar(config)
+    }
 })
