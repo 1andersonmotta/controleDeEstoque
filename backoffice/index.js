@@ -73,7 +73,8 @@ btn_fecharPopupDefSenha.addEventListener("click", (evt) => {
 })
 
 btn_gravarSenha.addEventListener("click", (evt) => {
-    if (f_senha.value != "" && f_senha2.value != "") {
+    console.log(f_senha.value, "1-" + f_senha1.value, "2-" + f_senha2.value)
+    if (f_senha1.value != "" && f_senha2.value != "") {
         if (f_senha1.value != f_senha2.value) {
             const config = {
                 titulo: "Alerta",
