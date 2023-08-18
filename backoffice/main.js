@@ -1,15 +1,9 @@
 const btn_menuPrincipal = document.querySelector("#btn_menuPrincipal")
 const menuPrincipal = document.querySelector("#menuPrincipal");
 const todosmenusprincipais = [...document.querySelectorAll(".btn_menuItem")]
+const divid = document.querySelector("#id");
+const divnome = document.querySelector("#nome");
 
-// const endpoint_config = `../config.txt`;
-// fetch(endpoint_config)
-//     .then(res => res.json())
-//     .then(res => {
-//         sessionStorage.setItem("servidor_nodered", res.servidor_nodered);
-//         sessionStorage.setItem("versao", res.versao);
-//         serv = res.servidor_nodered;
-//     })
 
 btn_menuPrincipal.addEventListener("click", (evt) => {
     menuPrincipal.classList.toggle("ocultar");
@@ -21,6 +15,13 @@ todosmenusprincipais.forEach(e => {
     })
 })
 
+const n_pessoa_pessoa = sessionStorage.getItem("id");
+const s_nome_pessoa = sessionStorage.getItem("nome");
+divid.innerHTML = `id: ${n_pessoa_pessoa}`;
+divnome.innerHTML = `nome:${s_nome_pessoa}`;
+
+
+//animação
 // gsap.set(".logo", {
 //     background: "yellow",
 //     x: -500,
