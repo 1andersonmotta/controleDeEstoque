@@ -37,6 +37,8 @@ btn_login.addEventListener('click', () => {
             .then(res => res.json())
             .then(res => {
                 if (res[0].retorno == 200) {
+                    sessionStorage.setItem("id", res[0].n_pessoa_pessoa)
+                    sessionStorage.setItem("nome", res[0].s_nome_pessoa)
                     window.location.href = "./main.html"
 
                 } else if (res[0].retorno == 208) {
