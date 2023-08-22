@@ -4,7 +4,10 @@ CREATE TABLE `pessoa` (
   `n_tipopessoa_tipopessoa` int,
   `s_nome_pessoa` varchar(255),
   `s_foto_pessoa` longtext,
-  `c_status_pessoa` char
+  `c_status_pessoa` char,
+  `s_email_pessoa` varchar(255),
+  `s_senha_pessoa` varchar(255),
+  `n_primacess_pessoa` int
 );
 
 CREATE TABLE `telefone` (
@@ -55,6 +58,13 @@ CREATE TABLE `movimentacao` (
   `dt_datahora_movimentacao` datetime
 );
 
+CREATE TABLE `token` (
+  `n_token_token` int PRIMARY KEY AUTO_INCREMENT,
+  `n_pessoa_pessoa` int,
+  `s_token_token` varchar(255),
+  `s_validade_token` varchar(255)
+);
+
 ALTER TABLE `pessoa` ADD FOREIGN KEY (`n_fornecedor_fornecedor`) REFERENCES `fornecedor` (`n_fornecedor_fornecedor`);
 
 ALTER TABLE `pessoa` ADD FOREIGN KEY (`n_tipopessoa_tipopessoa`) REFERENCES `tipopessoa` (`n_tipopessoa_tipopessoa`);
@@ -70,3 +80,5 @@ ALTER TABLE `produto` ADD FOREIGN KEY (`n_tipoProduto_tipoProduto`) REFERENCES `
 ALTER TABLE `produto` ADD FOREIGN KEY (`n_fornecedor_fornecedor`) REFERENCES `fornecedor` (`n_fornecedor_fornecedor`);
 
 ALTER TABLE `movimentacao` ADD FOREIGN KEY (`n_pessoa_pessoa`) REFERENCES `pessoa` (`n_pessoa_pessoa`);
+
+ALTER TABLE `token` ADD FOREIGN KEY (`n_pessoa_pessoa`) REFERENCES `pessoa` (`n_pessoa_pessoa`);
