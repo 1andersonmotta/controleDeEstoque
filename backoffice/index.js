@@ -12,6 +12,8 @@ const f_senha1 = document.querySelector("#f_senha1");
 const f_senha2 = document.querySelector("#f_senha2");
 const btn_gravarSenha = document.querySelector("#btn_gravarSenha");
 
+sessionStorage.setItem("n_pessoa_pessoa", "-1")
+sessionStorage.setItem("s_nome_pessoa", "-1")
 
 let serv = null;
 const endpoint_config = `../config.txt`;
@@ -37,8 +39,8 @@ btn_login.addEventListener('click', () => {
             .then(res => res.json())
             .then(res => {
                 if (res[0].retorno == 200) {
-                    sessionStorage.setItem("id", res[0].n_pessoa_pessoa)
-                    sessionStorage.setItem("nome", res[0].s_nome_pessoa)
+                    sessionStorage.setItem("n_pessoa_pessoa", res[0].n_pessoa_pessoa)
+                    sessionStorage.setItem("s_nome_pessoa", res[0].s_nome_pessoa)
                     window.location.href = "./main.html"
 
                 } else if (res[0].retorno == 208) {
