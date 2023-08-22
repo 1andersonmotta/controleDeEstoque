@@ -26,8 +26,8 @@ btnlogoff.addEventListener("click", (evt) => {
     window.location.href = "./index.html"
 });
 
-const n_pessoa_pessoa = sessionStorage.getItem("id");
-const s_nome_pessoa = sessionStorage.getItem("nome");
+const n_pessoa_pessoa = sessionStorage.getItem("n_pessoa_pessoa");
+const s_nome_pessoa = sessionStorage.getItem("s_nome_pessoa");
 divid.innerHTML = `id: ${n_pessoa_pessoa}`;
 divnome.innerHTML = `nome:${s_nome_pessoa}`;
 
