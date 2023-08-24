@@ -38,12 +38,12 @@ btn_login.addEventListener('click', () => {
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
-                if (res[0].retorno == 200) {
-                    sessionStorage.setItem("n_pessoa_pessoa", res[0].n_pessoa_pessoa)
-                    sessionStorage.setItem("s_nome_pessoa", res[0].s_nome_pessoa)
+                if (res.retorno == 200) {
+                    sessionStorage.setItem("n_pessoa_pessoa", res.n_pessoa_pessoa)
+                    sessionStorage.setItem("s_nome_pessoa", res.s_nome_pessoa)
                     window.location.href = "./main.html"
 
-                } else if (res[0].retorno == 208) {
+                } else if (res.retorno == 208) {
                     console.log("senha errada");
                     const config = {
                         titulo: "Erro",
@@ -56,9 +56,9 @@ btn_login.addEventListener('click', () => {
                     }
                     Cxmsg.mostrar(config)
 
-                } else if (res[0].retorno == 203) {
+                } else if (res.retorno == 203) {
                     console.log("primeiro acesso");
-                    iddefsenha.value = res[0].n_pessoa_pessoa;
+                    iddefsenha.value = res.n_pessoa_pessoa;
                     emaildefsenha.value = f_email.value;
                     primeiroAcesso.classList.remove("ocultarPopup")
                     login.classList.add("ocultarPopup")
