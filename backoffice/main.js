@@ -6,11 +6,15 @@ const verificarToken = () => {
     fetch(endpoint)
         .then(res => res.json())
         .then(res => {
-            if (res[0].retorno == 200) {
+            if (res.retorno == 200) {
                 pagina()
             } else {
                 alert("Token Inválido")
-                console.log("token inválido")
+                window.location.href = "./index.html";
+                sessionStorage.removeItem("n_pessoa_pessoa");
+                sessionStorage.removeItem("s_nome_pessoa");
+                sessionStorage.removeItem("n_token_token");
+                sessionStorage.removeItem("s_token_token");
             }
         });
 }
