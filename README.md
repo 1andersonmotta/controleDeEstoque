@@ -2,8 +2,12 @@
 # 🛒 Controle de Pessoas e Estoque
 
 ![GIF do Vídeo Atualize a página para carregar](estoque.gif)
+  
+📊 Nesse projeto, tive a oportunidade de aplicar meus conhecimentos em JavaScript, HTML e CSS para criar uma interface de usuário intuitiva e amigável. Utilizei o Node-RED para a lógica de automação, permitindo integrações perfeitas e tomadas de decisão inteligentes.
 
-A Aplicação Integrada de Controle de Estoque e Gerenciamento de Pessoas é uma solução abrangente e eficiente desenvolvida para otimizar a gestão de recursos em empresas e organizações. Combinando um sistema de controle de estoque avançado com um módulo de gerenciamento de pessoal seguro, essa aplicação oferece um ambiente integrado para melhorar a eficiência operacional e a tomada de decisões.
+🔗 Para armazenar e gerenciar os dados de forma eficiente, implementei um banco de dados MySQL através do WampServer. Isso garantiu uma base sólida para o armazenamento de informações vitais de estoque, fornecedores e equipes.
+
+📈 O projeto, que foi inspirado pelo canal CFB Curso em Vídeo, envolveu a replicação de um conceito fundamental. Ao aplicar essas tecnologias avançadas, pude aprimorar minhas habilidades práticas e expandir meu conhecimento no campo da automação e gerenciamento.
 
 ## Pré-requisitos
 
@@ -16,7 +20,7 @@ Para teste local utilize a extensão LiveServer : ritwickdey.LiveServer
 
 - Crie um Banco de dados com WampServer: [WampServer](https://www.youtube.com/watch?v=QXVyCunZN2s&pp=ygUKd2FtcHNlcnZlcg%3D%3D)
 - Instale e configure Node-Red com banco criado: [Node-Red](https://www.youtube.com/watch?v=QJYwx3zWBlY&t=379s&pp=ygUIbm9kZS1yZWQ%3D)
-- Abra o arquivo home.html com Live Server.
+- Abra o arquivo index.html com Live Server.
 
 ## 🛠 Ferramentas
 
@@ -27,7 +31,7 @@ Para teste local utilize a extensão LiveServer : ritwickdey.LiveServer
 
 ## Contribuição
 
-Se você tem alguma Sugestão enviar para devandersonmotta@gmail.com com o assunto: "contribuição reconhecimento de fala" ou pelo Linkedin link em contato.
+Se você tem alguma Sugestão enviar para devandersonmotta@gmail.com com o assunto: "contribuição controle de estoque" ou pelo Linkedin link em contato.
 
 ## Licença
 

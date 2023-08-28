@@ -1,5 +1,4 @@
 const serv = sessionStorage.getItem("servidor_nodered");
-
 const verificarToken = () => {
     const token = sessionStorage.getItem("s_token_token");
     const endpoint = `${serv}/verificatoken/${token}`;
