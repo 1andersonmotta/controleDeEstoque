@@ -38,7 +38,12 @@ btn_login.addEventListener('click', () => {
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
+                console.log("resIndex", res)
                 if (res.retorno == 200) {
+                    sessionStorage.setItem("n_pessoa_pessoa", res.n_pessoa_pessoa);
+                    sessionStorage.setItem("s_nome_pessoa", res.s_nome_pessoa);
+                    sessionStorage.setItem("n_token_token", res.inserId);
+                    sessionStorage.setItem("s_token_token", res.token);
                     window.location.href = "./main.html"
 
                 } else if (res.retorno == 208) {
