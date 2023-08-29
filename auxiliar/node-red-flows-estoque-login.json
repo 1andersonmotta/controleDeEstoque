@@ -1,0 +1,416 @@
+[
+    {
+        "id": "90c6e5caa073177f",
+        "type": "tab",
+        "label": "estoque login",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "077d2a3fb8d6ea80",
+        "type": "http in",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "url": "/login/:email/:senha",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "12c0ab9c7e7db06f"
+            ]
+        ]
+    },
+    {
+        "id": "359fe8ae84b057a9",
+        "type": "http response",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "statusCode": "203",
+        "headers": {},
+        "x": 1160,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ead286c85078261d",
+        "type": "debug",
+        "z": "90c6e5caa073177f",
+        "name": "debug 39",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "12c0ab9c7e7db06f",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "function 41",
+        "func": "const email = msg.req.params.email;\nmsg.senha_digitada = msg.req.params.senha;\n\nmsg.topic=`SELECT n_pessoa_pessoa, s_email_pessoa, s_senha_pessoa,s_nome_pessoa FROM pessoa WHERE s_email_pessoa=\"${email}\" `\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 120,
+        "wires": [
+            [
+                "9811514d248648f8"
+            ]
+        ]
+    },
+    {
+        "id": "9811514d248648f8",
+        "type": "mysql",
+        "z": "90c6e5caa073177f",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 780,
+        "y": 120,
+        "wires": [
+            [
+                "ead286c85078261d",
+                "f9bff4567c43ccd2"
+            ]
+        ]
+    },
+    {
+        "id": "f9bff4567c43ccd2",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "function 42",
+        "func": "msg.senha_atual = msg.payload[0].s_senha_pessoa;\nmsg.n_pessoa_pessoa = msg.payload[0].n_pessoa_pessoa;\nmsg.s_nome_pessoa = msg.payload[0].s_nome_pessoa;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "7a4716baaf825a5b"
+            ]
+        ]
+    },
+    {
+        "id": "7a4716baaf825a5b",
+        "type": "switch",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "property": "senha_atual",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "10ef6a01abb10da1"
+            ],
+            [
+                "6b985342f3d528e2"
+            ]
+        ]
+    },
+    {
+        "id": "10ef6a01abb10da1",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "primeiro acesso",
+        "func": "msg.payload[0].s_senha_pessoa = null;\nmsg.payload[0].senha_atual = null;\nmsg.s_senha_pessoa = null;\nmsg.senha_atual = null;\nmsg.retorno=203;\nmsg.payload[0].retorno=203;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 200,
+        "wires": [
+            [
+                "359fe8ae84b057a9",
+                "cb6e76c629105a76"
+            ]
+        ]
+    },
+    {
+        "id": "6b985342f3d528e2",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "verificar senha",
+        "func": "msg.s_senha_pessoa = msg.payload[0].s_senha_pessoa;\nmsg.n_pessoa_pessoa = msg.payload[0].n_pessoa_pessoa;\n// if(senha_atual == msg.senha_atual){\n\n// }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 300,
+        "wires": [
+            [
+                "7555c90ca14ce65e",
+                "348c82e1b5bb45cf"
+            ]
+        ]
+    },
+    {
+        "id": "7555c90ca14ce65e",
+        "type": "switch",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "property": "senha_atual",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "senha_digitada",
+                "vt": "msg"
+            },
+            {
+                "t": "neq",
+                "v": "senha_digitada",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 300,
+        "wires": [
+            [
+                "f66b2828b2aa556a"
+            ],
+            [
+                "88cc3ca00bb38397"
+            ]
+        ]
+    },
+    {
+        "id": "f66b2828b2aa556a",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "senha ok",
+        "func": "msg.payload[0].s_senha_pessoa = null;\nmsg.payload[0].senha_atual = null;\nmsg.s_senha_pessoa = null;\nmsg.senha_atual = null;\nmsg.retorno = 200\nmsg.payload[0].retorno = 200\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 280,
+        "wires": [
+            [
+                "73513b3815f69f7d"
+            ]
+        ]
+    },
+    {
+        "id": "88cc3ca00bb38397",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "senha errada",
+        "func": "msg.payload[0].s_senha_pessoa = null;\nmsg.payload[0].senha_atual = null;\nmsg.s_senha_pessoa = null;\nmsg.senha_atual = null;\nmsg.retorno = 208;\nmsg.payload[0].retorno = 208\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 340,
+        "wires": [
+            [
+                "44a0eddfe3623de4",
+                "85154af0c7ac85df"
+            ]
+        ]
+    },
+    {
+        "id": "44a0eddfe3623de4",
+        "type": "http response",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "statusCode": "208",
+        "headers": {},
+        "x": 1220,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "cb6e76c629105a76",
+        "type": "debug",
+        "z": "90c6e5caa073177f",
+        "name": "debug 40",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "85154af0c7ac85df",
+        "type": "debug",
+        "z": "90c6e5caa073177f",
+        "name": "debug 41",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "348c82e1b5bb45cf",
+        "type": "debug",
+        "z": "90c6e5caa073177f",
+        "name": "debug 43",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6f73df223b7cd366",
+        "type": "http in",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "url": "/gravarnovasenha",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 280,
+        "y": 560,
+        "wires": [
+            [
+                "b89b8a53771194cb"
+            ]
+        ]
+    },
+    {
+        "id": "b89b8a53771194cb",
+        "type": "function",
+        "z": "90c6e5caa073177f",
+        "name": "function 43",
+        "func": "msg.payload= JSON.parse(msg.payload)\nconst n_pessoa_pessoa = msg.payload.n_pessoa_pessoa\nconst s_senha_pessoa = msg.payload.s_senha_pessoa\n\nconst query = `UPDATE pessoa SET s_senha_pessoa=${s_senha_pessoa} WHERE n_pessoa_pessoa=${n_pessoa_pessoa}`;\nmsg.topic=query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 560,
+        "wires": [
+            [
+                "2d5c8ae602d8ef30"
+            ]
+        ]
+    },
+    {
+        "id": "2d5c8ae602d8ef30",
+        "type": "mysql",
+        "z": "90c6e5caa073177f",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 660,
+        "y": 560,
+        "wires": [
+            [
+                "cf4d87294a716a93",
+                "b4cc5b8c168c553e"
+            ]
+        ]
+    },
+    {
+        "id": "cf4d87294a716a93",
+        "type": "http response",
+        "z": "90c6e5caa073177f",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 920,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b4cc5b8c168c553e",
+        "type": "debug",
+        "z": "90c6e5caa073177f",
+        "name": "debug 44",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "73513b3815f69f7d",
+        "type": "link out",
+        "z": "90c6e5caa073177f",
+        "name": "saida token",
+        "mode": "link",
+        "links": [
+            "d2b06a9b47e0fcbe"
+        ],
+        "x": 1165,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4aece773f746262f",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "estoque",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]

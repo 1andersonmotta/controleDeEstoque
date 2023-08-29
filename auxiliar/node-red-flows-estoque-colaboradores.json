@@ -1,0 +1,892 @@
+[
+    {
+        "id": "f0f7f1f261513970",
+        "type": "tab",
+        "label": "estoque colaboradores ",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "74a8c27cb4c495a3",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/tipousuarios",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "c225bb6ecdbfc71d"
+            ]
+        ]
+    },
+    {
+        "id": "0a8cdaf61d9580dc",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "edca304b4a6973fb",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c225bb6ecdbfc71d",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 11",
+        "func": "msg.topic=\"SELECT * FROM tipopessoa\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "dc5411fb76fd42be"
+            ]
+        ]
+    },
+    {
+        "id": "dc5411fb76fd42be",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 560,
+        "y": 100,
+        "wires": [
+            [
+                "0a8cdaf61d9580dc",
+                "edca304b4a6973fb"
+            ]
+        ]
+    },
+    {
+        "id": "60ae3bccac791e8f",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/todosusuarios",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 320,
+        "wires": [
+            [
+                "7fabe3441537e1aa"
+            ]
+        ]
+    },
+    {
+        "id": "6e2d8de68abd4c54",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "cd818925a8816e67",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "7fabe3441537e1aa",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 12",
+        "func": "msg.topic=\"SELECT * FROM pessoa\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "29667fd58c3beb8a"
+            ]
+        ]
+    },
+    {
+        "id": "29667fd58c3beb8a",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 560,
+        "y": 320,
+        "wires": [
+            [
+                "6e2d8de68abd4c54",
+                "cd818925a8816e67"
+            ]
+        ]
+    },
+    {
+        "id": "bb7f4430867ffca0",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/novocolab",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "4921f9e6e66be9a5"
+            ]
+        ]
+    },
+    {
+        "id": "95d526d2c6b4d43c",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1070,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b77a62a954ad1fd0",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "4921f9e6e66be9a5",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 13",
+        "func": "msg.payload= JSON.parse(msg.payload)\nconst s_nome_pessoa = msg.payload.s_nome_pessoa\nconst n_tipopessoa_tipopessoa = msg.payload.n_tipopessoa_tipopessoa\nconst n_primacess_pessoa = msg.payload.n_primacess_pessoa\nconst s_email_pessoa = msg.payload.s_email_pessoa\nconst s_senha_pessoa = msg.payload.s_senha_pessoa\nconst c_status_pessoa = msg.payload.c_status_pessoa\nconst s_foto_pessoa = msg.payload.s_foto_pessoa\nmsg.numtelefones = msg.payload.numtelefones;\n\nconst query = `INSERT INTO pessoa (n_pessoa_pessoa,s_nome_pessoa,n_tipopessoa_tipopessoa,c_status_pessoa,s_foto_pessoa,n_primacess_pessoa,\ns_email_pessoa,s_senha_pessoa) VALUES(NULL,\"${s_nome_pessoa}\",${n_tipopessoa_tipopessoa},\"${c_status_pessoa}\",\"${s_foto_pessoa}\",${n_primacess_pessoa},\n\"${s_email_pessoa}\",\"${s_senha_pessoa}\")`;\nmsg.topic=query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 520,
+        "wires": [
+            [
+                "42be460d120173b8",
+                "46f032b3b6784ec6"
+            ]
+        ]
+    },
+    {
+        "id": "42be460d120173b8",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 500,
+        "y": 520,
+        "wires": [
+            [
+                "50609a88f7fb6493"
+            ]
+        ]
+    },
+    {
+        "id": "8eb157ac09031199",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 14",
+        "func": "let n_pessoa_pessoa = msg.payload.insertId;\nlet numtelefones=msg.numtelefones;\n\nlet numtelefones_montado=\"\";\nnumtelefones.forEach(f=> {\n    numtelefones_montado+=`,(NULL,${n_pessoa_pessoa},\"${f}\")`;\n});\nnumtelefones_montado = numtelefones_montado.substring(1);\n\nconst query = `INSERT INTO telefone (n_telefone_telefone,n_pessoa_pessoa,s_numero_telefone) VALUES ${numtelefones_montado}`;\nmsg.topic=query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 480,
+        "wires": [
+            [
+                "10149acb75172761",
+                "7042d4e60bb58809"
+            ]
+        ]
+    },
+    {
+        "id": "50609a88f7fb6493",
+        "type": "switch",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "property": "numtelefones",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 520,
+        "wires": [
+            [
+                "8eb157ac09031199"
+            ],
+            [
+                "95d526d2c6b4d43c",
+                "b77a62a954ad1fd0"
+            ]
+        ]
+    },
+    {
+        "id": "1a6561be081f8631",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/dadoscolab/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 780,
+        "wires": [
+            [
+                "af5f120cea7a53b9"
+            ]
+        ]
+    },
+    {
+        "id": "8568f3c8a76245b4",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "6df330aec55b1c13",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "af5f120cea7a53b9",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 15",
+        "func": "const id=msg.req.params.id\n\nmsg.topic=`SELECT * FROM pessoa WHERE n_pessoa_pessoa=${id}`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 780,
+        "wires": [
+            [
+                "d089aed7833aae04"
+            ]
+        ]
+    },
+    {
+        "id": "d089aed7833aae04",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 560,
+        "y": 780,
+        "wires": [
+            [
+                "8568f3c8a76245b4",
+                "6df330aec55b1c13"
+            ]
+        ]
+    },
+    {
+        "id": "4188efe1686afc31",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/telefonescolab/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 960,
+        "wires": [
+            [
+                "cd4e099b2113ee2c"
+            ]
+        ]
+    },
+    {
+        "id": "26d3be7e41b0f3b9",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "147e0ae423c45cd9",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "cd4e099b2113ee2c",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 16",
+        "func": "const id=msg.req.params.id\n\nmsg.topic=`SELECT * FROM telefone WHERE n_pessoa_pessoa=${id}`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 960,
+        "wires": [
+            [
+                "fd97dd2849427c9c"
+            ]
+        ]
+    },
+    {
+        "id": "fd97dd2849427c9c",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 580,
+        "y": 960,
+        "wires": [
+            [
+                "26d3be7e41b0f3b9",
+                "147e0ae423c45cd9"
+            ]
+        ]
+    },
+    {
+        "id": "ed3488933e283a6e",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/editarcolab",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 1160,
+        "wires": [
+            [
+                "e6c2b6b0acc2f50a"
+            ]
+        ]
+    },
+    {
+        "id": "37cb982211bcef1e",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "e6c2b6b0acc2f50a",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 17",
+        "func": "msg.payload= JSON.parse(msg.payload)\nconst n_pessoa_pessoa = msg.payload.n_pessoa_pessoa;\nconst s_nome_pessoa = msg.payload.s_nome_pessoa;\nconst n_tipopessoa_tipopessoa = msg.payload.n_tipopessoa_tipopessoa;\nconst c_status_pessoa = msg.payload.c_status_pessoa;\nconst s_foto_pessoa = msg.payload.s_foto_pessoa;\nmsg.numtelefones = msg.payload.numtelefones;\nmsg.n_pessoa_pessoa = msg.payload.n_pessoa_pessoa;\n\nconst query = `UPDATE pessoa SET s_nome_pessoa=\"${s_nome_pessoa}\",n_tipopessoa_tipopessoa=${n_tipopessoa_tipopessoa},c_status_pessoa=\"${c_status_pessoa}\",s_foto_pessoa=\"${s_foto_pessoa}\" WHERE n_pessoa_pessoa=${n_pessoa_pessoa}`;\nmsg.topic=query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 1160,
+        "wires": [
+            [
+                "964c026aba3e6f91"
+            ]
+        ]
+    },
+    {
+        "id": "964c026aba3e6f91",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 480,
+        "y": 1160,
+        "wires": [
+            [
+                "696e8aef7f2749dd"
+            ]
+        ]
+    },
+    {
+        "id": "7fa71089768ba308",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 18",
+        "func": "let n_pessoa_pessoa = msg.n_pessoa_pessoa;\nlet numtelefones=msg.numtelefones;\n\nlet numtelefones_montado=\"\";\nnumtelefones.forEach(f=> {\n    numtelefones_montado+=`,(NULL,${n_pessoa_pessoa},\"${f}\")`;\n});\nnumtelefones_montado = numtelefones_montado.substring(1);\n\nconst query = `INSERT INTO telefone (n_telefone_telefone,n_pessoa_pessoa,s_numero_telefone) VALUES ${numtelefones_montado}`;\nmsg.topic=query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1080,
+        "wires": [
+            [
+                "37cb982211bcef1e",
+                "a305db46a12172ba"
+            ]
+        ]
+    },
+    {
+        "id": "696e8aef7f2749dd",
+        "type": "switch",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "property": "numtelefones.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "lte",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 1160,
+        "wires": [
+            [
+                "7fa71089768ba308"
+            ],
+            [
+                "ede885047070a7f7"
+            ]
+        ]
+    },
+    {
+        "id": "a7875da9ecab6deb",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/deltelefone/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 1360,
+        "wires": [
+            [
+                "40f9181663dc662c"
+            ]
+        ]
+    },
+    {
+        "id": "1db149b9917b27ea",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 650,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "102d1be465c87fb9",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "40f9181663dc662c",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 19",
+        "func": "const id=msg.req.params.id\n\nmsg.topic=`DELETE FROM telefone WHERE n_telefone_telefone=${id}`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1360,
+        "wires": [
+            [
+                "8aba917d01a3fed6"
+            ]
+        ]
+    },
+    {
+        "id": "8aba917d01a3fed6",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 480,
+        "y": 1360,
+        "wires": [
+            [
+                "1db149b9917b27ea",
+                "102d1be465c87fb9"
+            ]
+        ]
+    },
+    {
+        "id": "ede885047070a7f7",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1010,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "a305db46a12172ba",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 960,
+        "y": 1100,
+        "wires": [
+            [
+                "ede885047070a7f7"
+            ]
+        ]
+    },
+    {
+        "id": "10149acb75172761",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "7ad2ae8a28544eba",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/mudarStatusColab/:id_colab/:status_colab",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 1620,
+        "wires": [
+            [
+                "8d6ae464b54a889c"
+            ]
+        ]
+    },
+    {
+        "id": "d1ace4026f9b5d32",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 910,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "7b61e549a691ddcc",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 1680,
+        "wires": []
+    },
+    {
+        "id": "8d6ae464b54a889c",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 20",
+        "func": "const n_pessoa_pessoa = msg.req.params.id_colab;\nconst c_status_pessoa = msg.req.params.status_colab;\n\nconst query = `UPDATE pessoa SET c_status_pessoa=\"${c_status_pessoa}\" WHERE n_pessoa_pessoa=${n_pessoa_pessoa}`;\nmsg.topic = query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 1620,
+        "wires": [
+            [
+                "db04f758134b89e4"
+            ]
+        ]
+    },
+    {
+        "id": "db04f758134b89e4",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 740,
+        "y": 1620,
+        "wires": [
+            [
+                "d1ace4026f9b5d32",
+                "7b61e549a691ddcc"
+            ]
+        ]
+    },
+    {
+        "id": "7702e2ebacc9230c",
+        "type": "http in",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "url": "/pesquisacolab/:tipo/:valor",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 1840,
+        "wires": [
+            [
+                "9da6d75b4254bd05"
+            ]
+        ]
+    },
+    {
+        "id": "b7d54fc0b155343c",
+        "type": "http response",
+        "z": "f0f7f1f261513970",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 910,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "79e1313076db540a",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 18",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "9da6d75b4254bd05",
+        "type": "function",
+        "z": "f0f7f1f261513970",
+        "name": "function 21",
+        "func": "const tipo = msg.req.params.tipo;\nconst valor= msg.req.params.valor;\n\nlet query=null\n\nif(tipo==\"id\"){\n    query=`SELECT * FROM  pessoa   WHERE n_pessoa_pessoa=${valor}`;\n}else{\n    query = `SELECT * FROM  pessoa   WHERE s_nome_pessoa LIKE \"%${valor}%\"`;\n}\n\n\nmsg.topic = query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 1840,
+        "wires": [
+            [
+                "5ef3ac9905657b73"
+            ]
+        ]
+    },
+    {
+        "id": "5ef3ac9905657b73",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 740,
+        "y": 1840,
+        "wires": [
+            [
+                "b7d54fc0b155343c",
+                "79e1313076db540a"
+            ]
+        ]
+    },
+    {
+        "id": "46f032b3b6784ec6",
+        "type": "debug",
+        "z": "f0f7f1f261513970",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "7042d4e60bb58809",
+        "type": "mysql",
+        "z": "f0f7f1f261513970",
+        "mydb": "4aece773f746262f",
+        "name": "",
+        "x": 960,
+        "y": 500,
+        "wires": [
+            [
+                "95d526d2c6b4d43c"
+            ]
+        ]
+    },
+    {
+        "id": "4aece773f746262f",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "estoque",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]
