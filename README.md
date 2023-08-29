@@ -22,7 +22,7 @@ Para teste local utilize a extensão LiveServer : ritwickdey.LiveServer
 - Instale e configure Node-Red com banco criado: [Node-Red](https://www.youtube.com/watch?v=QJYwx3zWBlY&t=379s&pp=ygUIbm9kZS1yZWQ%3D)  
 - Execute: $node-red
 - Acesse a url gerada ex: 127.0.0.1:1880
-- Importe os arquivos 'node-red'  da pasta auxiliar para o Node-Red
+- Importe os arquivos 'node-red'  da pasta auxiliar para o Node-Red "Navegador"
 - Abra o arquivo index.html com a extensão Live Server.
 
 ## 🛠 Ferramentas
