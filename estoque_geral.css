@@ -1,10 +1,7 @@
 * {
     margin: 0px;
     padding: 0px;
-
     font-family: 'Lato', sans-serif;
-
-    /* box-sizing: border-box; */
 }
 
 :root {
@@ -54,7 +51,6 @@ body {
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    color: #000;
     background-color: #888;
     text-align: center;
     color: #fff;
@@ -159,7 +155,6 @@ body {
     cursor: pointer;
 }
 
-/*  */
 
 /* topo janela */
 .topoJanela {
@@ -176,7 +171,6 @@ body {
     width: 40px;
 }
 
-/* ---------- */
 
 /* janela novo */
 .popup {
@@ -425,5 +419,3 @@ body {
     text-transform: uppercase;
     border: none;
 }
-
-/*  */
