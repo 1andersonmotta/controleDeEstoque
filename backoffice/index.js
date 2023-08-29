@@ -25,8 +25,6 @@ fetch(endpoint_config)
         serv = res.servidor_nodered;
     });
 
-
-
 btn_login.addEventListener('click', () => {
     if (serv != null) {
         const email = f_email.value;

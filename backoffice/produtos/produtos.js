@@ -86,7 +86,6 @@ const pagina = () => {
     }
     listaTiposProd()
     listaFornProd()
-    //n novo colaborator | e Editar colaborator
 
     f_filtragem.addEventListener("keyup", (evt) => {
         const linhas = [...document.querySelectorAll(".linhaGrid")];
@@ -152,7 +151,6 @@ const pagina = () => {
                 nao: null
             }
             Cxmsg.mostrar(config)
-            // alert("Preencha o campo de pesquisa");
             f_pesq.focus();
         }
     });
